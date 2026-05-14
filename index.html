@@ -268,119 +268,119 @@ body {
 <div class="app screen-content" id="screen-home">
     <div class="header">
         <div class="logo">JS<br><span>Casino</span></div>
-        <div class="header-avatar" id="user-avatar">ð¤</div>
+        <div class="header-avatar" id="user-avatar">👤</div>
     </div>
     <div class="balance-wrap">
         <div class="balance-card">
-            <div class="balance-label">ÐÐ°Ñ Ð±Ð°Ð»Ð°Ð½Ñ</div>
+            <div class="balance-label">Ваш баланс</div>
             <div class="balance-amount"><span class="num" id="user-balance">0</span><span class="currency">JScoin</span></div>
-            <div class="balance-change" id="balance-change"><span>ð</span> <span id="balance-change-text">+0 Ð·Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ</span></div>
+            <div class="balance-change" id="balance-change"><span>📈</span> <span id="balance-change-text">+0 за сегодня</span></div>
         </div>
     </div>
     <div class="quick-actions">
-        <div class="qa-btn" onclick="showToast('ÐÐ¾Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ ÑÐºÐ¾ÑÐ¾')">
-            <div class="qa-icon purple">ð°</div><span>ÐÐ¾Ð¿Ð¾Ð»Ð½Ð¸ÑÑ</span>
+        <div class="qa-btn" onclick="showToast('Пополнение скоро')">
+            <div class="qa-icon purple">💰</div><span>Пополнить</span>
         </div>
-        <div class="qa-btn" onclick="showToast('ÐÑÐ²Ð¾Ð´ ÑÐºÐ¾ÑÐ¾')">
-            <div class="qa-icon pink">ð¤</div><span>ÐÑÐ²ÐµÑÑÐ¸</span>
+        <div class="qa-btn" onclick="showToast('Вывод скоро')">
+            <div class="qa-icon pink">📤</div><span>Вывести</span>
         </div>
-        <div class="qa-btn" onclick="showToast('ÐÑÑÐ¾ÑÐ¸Ñ ÑÐºÐ¾ÑÐ¾')">
-            <div class="qa-icon blue">ð</div><span>ÐÑÑÐ¾ÑÐ¸Ñ</span>
+        <div class="qa-btn" onclick="showToast('История скоро')">
+            <div class="qa-icon blue">📋</div><span>История</span>
         </div>
-        <div class="qa-btn" onclick="showToast('ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸ ÑÐºÐ¾ÑÐ¾')">
-            <div class="qa-icon green">âï¸</div><span>ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸</span>
+        <div class="qa-btn" onclick="showToast('Настройки скоро')">
+            <div class="qa-icon green">⚙️</div><span>Настройки</span>
         </div>
     </div>
     <div class="live-bar">
         <div class="live-dot"></div>
-        <div class="live-text"><b id="live-players">1,247</b> Ð¸Ð³ÑÐ¾ÐºÐ¾Ð² Ð¾Ð½Ð»Ð°Ð¹Ð½</div>
+        <div class="live-text"><b id="live-players">1,247</b> игроков онлайн</div>
         <div class="live-avatars">
             <div class="live-avatar">A</div><div class="live-avatar">M</div><div class="live-avatar">K</div><div class="live-avatar">+</div>
         </div>
     </div>
-    <div class="section-title"><h2>ð¥ ÐÐ¾Ð¿ÑÐ»ÑÑÐ½Ð¾Ðµ</h2><span class="see-all">ÐÑÐµ Ð¸Ð³ÑÑ â</span></div>
+    <div class="section-title"><h2>🔥 Популярное</h2><span class="see-all">Все игры →</span></div>
     <div class="featured" onclick="openGameScreen('mines')">
         <div class="featured-content">
-            <div class="featured-badge">ð¥ Ð¢Ð¾Ð¿ #1</div>
-            <h3>ÐÐ¸Ð½Ñ</h3>
-            <p>ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±. Ð§ÐµÐ¼ Ð±Ð¾Ð»ÑÑÐµ Ð¾ÑÐºÑÐ¾ÐµÑÑ â ÑÐµÐ¼ Ð²ÑÑÐµ Ð¼Ð½Ð¾Ð¶Ð¸ÑÐµÐ»Ñ!</p>
-            <button class="featured-btn">ÐÐ³ÑÐ°ÑÑ ÑÐµÐ¹ÑÐ°Ñ â</button>
+            <div class="featured-badge">🔥 Топ #1</div>
+            <h3>Мины</h3>
+            <p>Найди алмазы, избегай бомб. Чем больше откроешь — тем выше множитель!</p>
+            <button class="featured-btn">Играть сейчас →</button>
         </div>
     </div>
-    <div class="section-title"><h2>ð® ÐÑÐµ Ð¸Ð³ÑÑ</h2></div>
+    <div class="section-title"><h2>🎮 Все игры</h2></div>
     <div class="games-grid">
-        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">Ð´Ð¾ x50</div><div class="game-card-icon purple">ð£</div><div class="game-card-title">ÐÐ¸Ð½Ñ</div><div class="game-card-desc">ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±</div></div>
-        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">Ð´Ð¾ x100</div><div class="game-card-icon pink">ð</div><div class="game-card-title">ÐÑÐ°Ñ</div><div class="game-card-desc">Ð£ÑÐ¿ÐµÐ¹ Ð·Ð°Ð±ÑÐ°ÑÑ Ð´Ð¾ ÐºÑÐ°ÑÐ°</div></div>
-        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">ð</div><div class="game-card-title">ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div><div class="game-card-desc">Ð¡Ð¾Ð±ÐµÑÐ¸ 21 Ð¾ÑÐºÐ¾</div></div>
-        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">ð«</div><div class="game-card-title">Ð¡ÐºÑÐµÑÑ</div><div class="game-card-desc">Ð¡Ð¾ÑÑÐ¸ Ð¸ Ð²ÑÐ¸Ð³ÑÐ°Ð¹</div></div>
-        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">ð¡</div><div class="game-card-title">Ð ÑÐ»ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÑÑÑÐ¸ ÐºÐ¾Ð»ÐµÑÐ¾ ÑÐ´Ð°ÑÐ¸</div></div>
-        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">ð²</div><div class="game-card-title">ÐÐ¾ÑÑÐ¸</div><div class="game-card-desc">Ð£Ð³Ð°Ð´Ð°Ð¹ ÑÐ¸ÑÐ»Ð¾ 1-6</div></div>
-        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">ðª</div><div class="game-card-title">ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÐ»Ð°ÑÑÐ¸ÐºÐ° 50/50</div></div>
+        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">до x50</div><div class="game-card-icon purple">💣</div><div class="game-card-title">Мины</div><div class="game-card-desc">Найди алмазы, избегай бомб</div></div>
+        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">до x100</div><div class="game-card-icon pink">📈</div><div class="game-card-title">Краш</div><div class="game-card-desc">Успей забрать до краха</div></div>
+        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">🃏</div><div class="game-card-title">Блэкджек</div><div class="game-card-desc">Собери 21 очко</div></div>
+        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">🎫</div><div class="game-card-title">Скретч</div><div class="game-card-desc">Сотри и выиграй</div></div>
+        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">🎡</div><div class="game-card-title">Рулетка</div><div class="game-card-desc">Крути колесо удачи</div></div>
+        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">🎲</div><div class="game-card-title">Кости</div><div class="game-card-desc">Угадай число 1-6</div></div>
+        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">🪙</div><div class="game-card-title">Орёл и Решка</div><div class="game-card-desc">Классика 50/50</div></div>
     </div>
 </div>
 
-<!-- GAMES LIST (simple grid view) -->
+<!-- GAMES LIST -->
 <div class="app screen-content hidden" id="screen-games">
     <div class="header"><div class="logo">JS<br><span>Casino</span></div></div>
-    <div class="section-title"><h2>ð® ÐÑÐµ Ð¸Ð³ÑÑ</h2></div>
+    <div class="section-title"><h2>🎮 Все игры</h2></div>
     <div class="games-grid">
-        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">Ð´Ð¾ x50</div><div class="game-card-icon purple">ð£</div><div class="game-card-title">ÐÐ¸Ð½Ñ</div><div class="game-card-desc">ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±</div></div>
-        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">Ð´Ð¾ x100</div><div class="game-card-icon pink">ð</div><div class="game-card-title">ÐÑÐ°Ñ</div><div class="game-card-desc">Ð£ÑÐ¿ÐµÐ¹ Ð·Ð°Ð±ÑÐ°ÑÑ Ð´Ð¾ ÐºÑÐ°ÑÐ°</div></div>
-        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">ð</div><div class="game-card-title">ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div><div class="game-card-desc">Ð¡Ð¾Ð±ÐµÑÐ¸ 21 Ð¾ÑÐºÐ¾</div></div>
-        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">ð«</div><div class="game-card-title">Ð¡ÐºÑÐµÑÑ</div><div class="game-card-desc">Ð¡Ð¾ÑÑÐ¸ Ð¸ Ð²ÑÐ¸Ð³ÑÐ°Ð¹</div></div>
-        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">ð¡</div><div class="game-card-title">Ð ÑÐ»ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÑÑÑÐ¸ ÐºÐ¾Ð»ÐµÑÐ¾ ÑÐ´Ð°ÑÐ¸</div></div>
-        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">ð²</div><div class="game-card-title">ÐÐ¾ÑÑÐ¸</div><div class="game-card-desc">Ð£Ð³Ð°Ð´Ð°Ð¹ ÑÐ¸ÑÐ»Ð¾ 1-6</div></div>
-        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">ðª</div><div class="game-card-title">ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÐ»Ð°ÑÑÐ¸ÐºÐ° 50/50</div></div>
+        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">до x50</div><div class="game-card-icon purple">💣</div><div class="game-card-title">Мины</div><div class="game-card-desc">Найди алмазы, избегай бомб</div></div>
+        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">до x100</div><div class="game-card-icon pink">📈</div><div class="game-card-title">Краш</div><div class="game-card-desc">Успей забрать до краха</div></div>
+        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">🃏</div><div class="game-card-title">Блэкджек</div><div class="game-card-desc">Собери 21 очко</div></div>
+        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">🎫</div><div class="game-card-title">Скретч</div><div class="game-card-desc">Сотри и выиграй</div></div>
+        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">🎡</div><div class="game-card-title">Рулетка</div><div class="game-card-desc">Крути колесо удачи</div></div>
+        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">🎲</div><div class="game-card-title">Кости</div><div class="game-card-desc">Угадай число 1-6</div></div>
+        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">🪙</div><div class="game-card-title">Орёл и Решка</div><div class="game-card-desc">Классика 50/50</div></div>
     </div>
 </div>
 
 <!-- TOP -->
 <div class="app screen-content hidden" id="screen-top">
-    <div class="header"><div class="logo">JS<br><span>Ð¢Ð¾Ð¿</span></div></div>
-    <div class="section-title"><h2>ð Ð¢Ð¾Ð¿ Ð¸Ð³ÑÐ¾ÐºÐ¾Ð²</h2></div>
+    <div class="header"><div class="logo">JS<br><span>Топ</span></div></div>
+    <div class="section-title"><h2>🏆 Топ игроков</h2></div>
     <div id="top-list"></div>
     <div id="top-mypos" class="my-position hidden"></div>
     <div class="empty-state hidden" id="top-empty">
-        <div class="empty-state-icon">ð</div>
-        <div>ÐÐ¾ÐºÐ° Ð½ÐµÑ Ð¸Ð³ÑÐ¾ÐºÐ¾Ð² Ð² ÑÐ¾Ð¿Ðµ</div>
+        <div class="empty-state-icon">🏆</div>
+        <div>Пока нет игроков в топе</div>
     </div>
 </div>
 
 <!-- PROFILE -->
 <div class="app screen-content hidden" id="screen-profile">
-    <div class="header"><div class="logo">JS<br><span>ÐÑÐ¾ÑÐ¸Ð»Ñ</span></div></div>
+    <div class="header"><div class="logo">JS<br><span>Профиль</span></div></div>
     <div class="profile-card">
         <div class="profile-header">
-            <div class="profile-avatar-big" id="profile-avatar">ð¤</div>
+            <div class="profile-avatar-big" id="profile-avatar">👤</div>
             <div class="profile-name-block">
-                <div class="profile-name" id="profile-nick">ÐÐ³ÑÐ¾Ðº</div>
+                <div class="profile-name" id="profile-nick">Игрок</div>
                 <div class="profile-id-text" id="profile-id">ID: -</div>
             </div>
         </div>
     </div>
     <div class="profile-card">
-        <div class="profile-row"><span>ð° ÐÐ°Ð»Ð°Ð½Ñ</span><span id="profile-balance">0 JScoin</span></div>
-        <div class="profile-row"><span>ð® ÐÑÐµÐ³Ð¾ Ð¸Ð³Ñ</span><span id="profile-games">0</span></div>
-        <div class="profile-row"><span>ð ÐÐ¾Ð±ÐµÐ´</span><span id="profile-wins">0</span></div>
-        <div class="profile-row"><span>ð ÐÐ¾ÑÐ°Ð¶ÐµÐ½Ð¸Ð¹</span><span id="profile-losses">0</span></div>
-        <div class="profile-row"><span>ð ÐÐ¸Ð½ÑÐµÐ¹Ñ</span><span id="profile-winrate">0%</span></div>
+        <div class="profile-row"><span>💰 Баланс</span><span id="profile-balance">0 JScoin</span></div>
+        <div class="profile-row"><span>🎮 Всего игр</span><span id="profile-games">0</span></div>
+        <div class="profile-row"><span>🏆 Побед</span><span id="profile-wins">0</span></div>
+        <div class="profile-row"><span>💀 Поражений</span><span id="profile-losses">0</span></div>
+        <div class="profile-row"><span>📈 Винрейт</span><span id="profile-winrate">0%</span></div>
     </div>
     <div class="profile-card">
-        <div class="profile-row"><span>ð ÐÑÐ¸Ð³ÑÐ°Ð½Ð¾</span><span class="green" id="profile-won">+0</span></div>
-        <div class="profile-row"><span>ð ÐÑÐ¾Ð¸Ð³ÑÐ°Ð½Ð¾</span><span class="red" id="profile-lost">-0</span></div>
+        <div class="profile-row"><span>💎 Выиграно</span><span class="green" id="profile-won">+0</span></div>
+        <div class="profile-row"><span>📉 Проиграно</span><span class="red" id="profile-lost">-0</span></div>
     </div>
 </div>
 
 <!-- BONUS -->
 <div class="app screen-content hidden" id="screen-bonus">
-    <div class="header"><div class="logo">JS<br><span>ÐÐ¾Ð½ÑÑ</span></div></div>
+    <div class="header"><div class="logo">JS<br><span>Бонус</span></div></div>
     <div class="bonus-card">
-        <div class="bonus-icon">ð</div>
-        <div class="bonus-title">ÐÐ¶ÐµÐ´Ð½ÐµÐ²Ð½ÑÐ¹ Ð±Ð¾Ð½ÑÑ</div>
-        <div class="bonus-desc">ÐÐ¾Ð»ÑÑÐ°Ð¹ÑÐµ +10,000 JScoin ÐºÐ°Ð¶Ð´ÑÐµ 24 ÑÐ°ÑÐ°</div>
+        <div class="bonus-icon">🎁</div>
+        <div class="bonus-title">Ежедневный бонус</div>
+        <div class="bonus-desc">Получайте +10,000 JScoin каждые 24 часа</div>
         <div class="bonus-amount hidden" id="bonus-amount">+10,000 JScoin</div>
         <div class="bonus-timer hidden" id="bonus-timer"></div>
-        <button class="bonus-btn" onclick="claimBonus()" id="bonus-btn">ð° ÐÐ¾Ð»ÑÑÐ¸ÑÑ Ð±Ð¾Ð½ÑÑ</button>
+        <button class="bonus-btn" onclick="claimBonus()" id="bonus-btn">💰 Получить бонус</button>
     </div>
 </div>
 
@@ -388,43 +388,43 @@ body {
 <div class="app screen-content hidden" id="screen-admin">
     <div class="header">
         <div class="logo">JS<br><span>Admin</span></div>
-        <div class="header-avatar" style="background: linear-gradient(135deg, #ef4444, #dc2626);">ð§</div>
+        <div class="header-avatar" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🔧</div>
     </div>
-    <div class="section-title"><h2>ð§ ÐÐ´Ð¼Ð¸Ð½-Ð¿Ð°Ð½ÐµÐ»Ñ</h2></div>
+    <div class="section-title"><h2>🔧 Админ-панель</h2></div>
     <div class="admin-card">
-        <div class="admin-title">ð° ÐÑÐ´Ð°ÑÐ° Ð±Ð°Ð»Ð°Ð½ÑÐ°</div>
-        <input type="number" class="admin-input" id="admin-target-id" placeholder="ID Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ">
-        <input type="number" class="admin-input" id="admin-amount" placeholder="Ð¡ÑÐ¼Ð¼Ð° JScoin">
-        <button class="admin-btn" onclick="adminGive()">ÐÑÐ´Ð°ÑÑ Ð±Ð°Ð»Ð°Ð½Ñ</button>
-    </div>
-    <div class="admin-card">
-        <div class="admin-title">ð Ð¡ÑÐ°ÑÐ¸ÑÑÐ¸ÐºÐ° Ð±Ð¾ÑÐ°</div>
-        <div class="admin-stat"><span>ÐÐ¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»ÐµÐ¹</span><span id="admin-users">0</span></div>
-        <div class="admin-stat"><span>ÐÑÐµÐ³Ð¾ Ð²ÑÐ¸Ð³ÑÐ°Ð½Ð¾</span><span id="admin-won">0</span></div>
-        <div class="admin-stat"><span>ÐÑÐµÐ³Ð¾ Ð¿ÑÐ¾Ð¸Ð³ÑÐ°Ð½Ð¾</span><span id="admin-lost">0</span></div>
-        <div class="admin-stat"><span>ÐÐ±Ð¾ÑÐ¾Ñ</span><span id="admin-turnover">0</span></div>
-        <div class="admin-stat"><span>ÐÑÐ¸Ð±ÑÐ»Ñ Ð±Ð¾ÑÐ°</span><span id="admin-profit" style="color:#4ade80;">0</span></div>
+        <div class="admin-title">💰 Выдача баланса</div>
+        <input type="number" class="admin-input" id="admin-target-id" placeholder="ID пользователя">
+        <input type="number" class="admin-input" id="admin-amount" placeholder="Сумма JScoin">
+        <button class="admin-btn" onclick="adminGive()">Выдать баланс</button>
     </div>
     <div class="admin-card">
-        <div class="admin-title">ð¢ Ð Ð°ÑÑÑÐ»ÐºÐ°</div>
-        <textarea class="admin-input" id="admin-broadcast-text" placeholder="Ð¢ÐµÐºÑÑ ÑÐ°ÑÑÑÐ»ÐºÐ¸..." rows="3" style="resize:none;"></textarea>
-        <button class="admin-btn" onclick="adminBroadcast()">ÐÑÐ¿ÑÐ°Ð²Ð¸ÑÑ Ð²ÑÐµÐ¼</button>
+        <div class="admin-title">📊 Статистика бота</div>
+        <div class="admin-stat"><span>Пользователей</span><span id="admin-users">0</span></div>
+        <div class="admin-stat"><span>Всего выиграно</span><span id="admin-won">0</span></div>
+        <div class="admin-stat"><span>Всего проиграно</span><span id="admin-lost">0</span></div>
+        <div class="admin-stat"><span>Оборот</span><span id="admin-turnover">0</span></div>
+        <div class="admin-stat"><span>Прибыль бота</span><span id="admin-profit" style="color:#4ade80;">0</span></div>
+    </div>
+    <div class="admin-card">
+        <div class="admin-title">📢 Рассылка</div>
+        <textarea class="admin-input" id="admin-broadcast-text" placeholder="Текст рассылки..." rows="3" style="resize:none;"></textarea>
+        <button class="admin-btn" onclick="adminBroadcast()">Отправить всем</button>
         <div id="admin-broadcast-result" style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);"></div>
     </div>
 </div>
 
 <!-- GAME: MINES -->
 <div class="app game-screen" id="game-mines">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð£ ÐÐ¸Ð½Ñ</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">💣 Мины</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="mines-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
-        <div class="bet-label">ÐÐ¾Ð»Ð¸ÑÐµÑÑÐ²Ð¾ Ð¼Ð¸Ð½</div>
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="mines-bet" placeholder="Мин. 10" min="10">
+        <div class="bet-label">Количество мин</div>
         <select class="select-v2" id="mines-count">
-            <option value="1">1 Ð¼Ð¸Ð½Ð°</option><option value="3">3 Ð¼Ð¸Ð½Ñ</option><option value="5" selected>5 Ð¼Ð¸Ð½</option>
-            <option value="10">10 Ð¼Ð¸Ð½</option><option value="15">15 Ð¼Ð¸Ð½</option><option value="20">20 Ð¼Ð¸Ð½</option>
+            <option value="1">1 мина</option><option value="3">3 мины</option><option value="5" selected>5 мин</option>
+            <option value="10">10 мин</option><option value="15">15 мин</option><option value="20">20 мин</option>
         </select>
-        <button class="game-btn" onclick="startMines()" id="mines-start-btn">â¶ ÐÐ°ÑÐ°ÑÑ Ð¸Ð³ÑÑ</button>
+        <button class="game-btn" onclick="startMines()" id="mines-start-btn">▶ Начать игру</button>
     </div>
     <div id="mines-board" class="mines-board-v2 hidden"></div>
     <div id="mines-info" class="game-info-box"></div>
@@ -432,17 +432,17 @@ body {
 
 <!-- GAME: CRASH -->
 <div class="app game-screen" id="game-crash">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð ÐÑÐ°Ñ</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">📈 Краш</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="crash-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
-        <div class="bet-label">Ð¦ÐµÐ»Ñ</div>
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="crash-bet" placeholder="Мин. 10" min="10">
+        <div class="bet-label">Цель</div>
         <select class="select-v2" id="crash-target">
-            <option value="1.5">x1.5 (66% ÑÐ°Ð½Ñ)</option><option value="2.0">x2.0 (50% ÑÐ°Ð½Ñ)</option>
-            <option value="3.0" selected>x3.0 (33% ÑÐ°Ð½Ñ)</option><option value="5.0">x5.0 (20% ÑÐ°Ð½Ñ)</option>
-            <option value="10.0">x10.0 (10% ÑÐ°Ð½Ñ)</option>
+            <option value="1.5">x1.5 (66% шанс)</option><option value="2.0">x2.0 (50% шанс)</option>
+            <option value="3.0" selected>x3.0 (33% шанс)</option><option value="5.0">x5.0 (20% шанс)</option>
+            <option value="10.0">x10.0 (10% шанс)</option>
         </select>
-        <button class="game-btn" onclick="playCrash()" id="crash-start-btn">â¶ ÐÐ³ÑÐ°ÑÑ</button>
+        <button class="game-btn" onclick="playCrash()" id="crash-start-btn">▶ Играть</button>
     </div>
     <div id="crash-display" class="crash-display-v2 hidden"><div class="crash-multiplier-v2" id="crash-multiplier">x1.00</div></div>
     <div id="crash-info" class="game-info-box"></div>
@@ -450,17 +450,17 @@ body {
 
 <!-- GAME: ROULETTE -->
 <div class="app game-screen" id="game-roulette">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð¡ Ð ÑÐ»ÐµÑÐºÐ°</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">🎡 Рулетка</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="roulette-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="roulette-bet" placeholder="Мин. 10" min="10">
         <div class="btn-grid-v2">
-            <button class="btn-option-v2" onclick="playRoulette('red')">ð´ ÐÑÐ°ÑÐ½Ð¾Ðµ x2</button>
-            <button class="btn-option-v2" onclick="playRoulette('black')">â« Ð§ÑÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('red')">🔴 Красное x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('black')">⚫ Чёрное x2</button>
         </div>
         <div class="btn-grid-v2">
-            <button class="btn-option-v2" onclick="playRoulette('even')">ð¢ Ð§ÑÑÐ½Ð¾Ðµ x2</button>
-            <button class="btn-option-v2" onclick="playRoulette('odd')">ð¢ ÐÐµÑÑÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('even')">🔢 Чётное x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('odd')">🔢 Нечётное x2</button>
         </div>
         <div class="btn-grid-v2">
             <button class="btn-option-v2" onclick="playRoulette('1-12')">1-12 x2.98</button>
@@ -468,7 +468,7 @@ body {
         </div>
         <div class="btn-grid-v2">
             <button class="btn-option-v2" onclick="playRoulette('25-36')">25-36 x2.98</button>
-            <button class="btn-option-v2" onclick="playRoulette('green')">ð¢ ÐÐµÑÐ¾ x14</button>
+            <button class="btn-option-v2" onclick="playRoulette('green')">🟢 Зеро x14</button>
         </div>
     </div>
     <div id="roulette-result" class="hidden">
@@ -478,11 +478,11 @@ body {
 </div>
 
 <!-- GAME: DICE -->
-<div class="app game-screen" id="game-dice">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð² ÐÐ¾ÑÑÐ¸</div></div>
+<div class="app game-screen" id="game-dash">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">🎲 Кости</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="dice-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="dice-bet" placeholder="Мин. 10" min="10">
         <div class="btn-grid-v2 btn-grid-3">
             <button class="btn-option-v2" onclick="playDice('1')">1 (x5)</button>
             <button class="btn-option-v2" onclick="playDice('2')">2 (x5)</button>
@@ -492,12 +492,12 @@ body {
             <button class="btn-option-v2" onclick="playDice('6')">6 (x5)</button>
         </div>
         <div class="btn-grid-v2">
-            <button class="btn-option-v2" onclick="playDice('even')">Ð§ÑÑÐ½Ð¾Ðµ x2</button>
-            <button class="btn-option-v2" onclick="playDice('odd')">ÐÐµÑÑÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playDice('even')">Чётное x2</button>
+            <button class="btn-option-v2" onclick="playDice('odd')">Нечётное x2</button>
         </div>
         <div class="btn-grid-v2">
-            <button class="btn-option-v2" onclick="playDice('high')">ÐÐ¾Ð»ÑÑÐµ 3 x2</button>
-            <button class="btn-option-v2" onclick="playDice('low')">ÐÐµÐ½ÑÑÐµ 4 x2</button>
+            <button class="btn-option-v2" onclick="playDice('high')">Больше 3 x2</button>
+            <button class="btn-option-v2" onclick="playDice('low')">Меньше 4 x2</button>
         </div>
     </div>
     <div id="dice-result" class="hidden">
@@ -508,70 +508,70 @@ body {
 
 <!-- GAME: COIN -->
 <div class="app game-screen" id="game-coin">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ðª ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">🪙 Орёл и Решка</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="coin-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="coin-bet" placeholder="Мин. 10" min="10">
         <div class="btn-grid-v2">
-            <button class="btn-option-v2" onclick="playCoin('heads')" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(29,78,216,0.1));border-color:rgba(59,130,246,0.2);">ð¦ ÐÑÑÐ»</button>
-            <button class="btn-option-v2" onclick="playCoin('tails')" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(217,119,6,0.1));border-color:rgba(245,158,11,0.2);">ðª Ð ÐµÑÐºÐ°</button>
+            <button class="btn-option-v2" onclick="playCoin('heads')" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(29,78,216,0.1));border-color:rgba(59,130,246,0.2);">🦅 Орёл</button>
+            <button class="btn-option-v2" onclick="playCoin('tails')" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(217,119,6,0.1));border-color:rgba(245,158,11,0.2);">🪙 Решка</button>
         </div>
     </div>
     <div id="coin-result" class="hidden" style="text-align:center;padding:20px 0;">
-        <div class="coin-v2" id="coin-icon">ð¦</div>
+        <div class="coin-v2" id="coin-icon">🦅</div>
         <div id="coin-info" class="game-info-box"></div>
     </div>
 </div>
 
 <!-- GAME: BLACKJACK -->
 <div class="app game-screen" id="game-blackjack">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">🃏 Блэкджек</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="bj-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
-        <button class="game-btn" onclick="startBJ()" id="bj-start-btn">â¶ ÐÐ°ÑÐ°ÑÑ Ð¸Ð³ÑÑ</button>
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="bj-bet" placeholder="Мин. 10" min="10">
+        <button class="game-btn" onclick="startBJ()" id="bj-start-btn">▶ Начать игру</button>
     </div>
     <div id="bj-table" class="bj-table-v2 hidden">
-        <div class="bj-label-v2">ÐÐ¸Ð»ÐµÑ</div>
+        <div class="bj-label-v2">Дилер</div>
         <div class="bj-hand-v2" id="bj-dealer-hand"></div>
         <div class="bj-score-v2" id="bj-dealer-score">0</div>
         <div style="border-top:1px solid rgba(255,255,255,0.1);margin:12px 0;"></div>
-        <div class="bj-label-v2">ÐÑ</div>
+        <div class="bj-label-v2">Вы</div>
         <div class="bj-hand-v2" id="bj-player-hand"></div>
         <div class="bj-score-v2" id="bj-player-score">0</div>
     </div>
     <div class="bj-controls-v2 hidden" id="bj-controls">
-        <button class="game-btn green" onclick="bjHit()">ð ÐÐ·ÑÑÑ</button>
-        <button class="game-btn orange" onclick="bjStand()">â Ð¡ÑÐ¾Ð¿</button>
+        <button class="game-btn green" onclick="bjHit()">🃏 Взять</button>
+        <button class="game-btn orange" onclick="bjStand()">✋ Стоп</button>
     </div>
     <div id="bj-info" class="game-info-box"></div>
 </div>
 
 <!-- GAME: SCRATCH -->
 <div class="app game-screen" id="game-scratch">
-    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð« Ð¡ÐºÑÐµÑÑ-ÐºÐ°ÑÑÐ°</div></div>
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">◀ Назад</button><div class="game-title-bar">🎫 Скретч-карта</div></div>
     <div class="bet-box">
-        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ°</div>
-        <input type="number" class="bet-input-v2" id="scratch-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
-        <button class="game-btn" onclick="startScratch()" id="scratch-start-btn">â¶ ÐÑÐ¿Ð¸ÑÑ ÐºÐ°ÑÑÑ</button>
+        <div class="bet-label">Ставка</div>
+        <input type="number" class="bet-input-v2" id="scratch-bet" placeholder="Мин. 10" min="10">
+        <button class="game-btn" onclick="startScratch()" id="scratch-start-btn">▶ Купить карту</button>
     </div>
     <div id="scratch-area" class="hidden" style="text-align:center;">
         <div class="scratch-card-v2" id="scratch-card">
             <div class="scratch-prize-v2" id="scratch-prize"></div>
             <canvas class="scratch-canvas-v2" id="scratch-canvas"></canvas>
         </div>
-        <p style="opacity:0.5;font-size:13px;margin-top:12px;">ð Ð¡Ð¾ÑÑÐ¸ÑÐµ ÑÐµÑÐµÐ±ÑÑÐ½ÑÑ Ð¾Ð±Ð»Ð°ÑÑÑ Ð¿Ð°Ð»ÑÑÐµÐ¼</p>
+        <p style="opacity:0.5;font-size:13px;margin-top:12px;">👆 Сотрите серебряную область пальцем</p>
         <div id="scratch-info" class="game-info-box"></div>
     </div>
 </div>
 
 <div class="bottom-nav">
     <div class="bottom-nav-inner">
-        <button class="nav-item active" onclick="switchNav(this, 'home')" id="nav-home"><div class="nav-icon">ð </div><span>ÐÐ»Ð°Ð²Ð½Ð°Ñ</span></button>
-        <button class="nav-item" onclick="switchNav(this, 'games')" id="nav-games"><div class="nav-icon">ð®</div><span>ÐÐ³ÑÑ</span></button>
-        <button class="nav-item" onclick="switchNav(this, 'top')" id="nav-top"><div class="nav-icon">ð</div><span>Ð¢Ð¾Ð¿</span></button>
-        <button class="nav-item" onclick="switchNav(this, 'profile')" id="nav-profile"><div class="nav-icon">ð¤</div><span>ÐÑÐ¾ÑÐ¸Ð»Ñ</span></button>
-        <button class="nav-item hidden" onclick="switchNav(this, 'admin')" id="nav-admin"><div class="nav-icon">ð§</div><span>ÐÐ´Ð¼Ð¸Ð½</span></button>
+        <button class="nav-item active" onclick="switchNav(this, 'home')" id="nav-home"><div class="nav-icon">🏠</div><span>Главная</span></button>
+        <button class="nav-item" onclick="switchNav(this, 'games')" id="nav-games"><div class="nav-icon">🎮</div><span>Игры</span></button>
+        <button class="nav-item" onclick="switchNav(this, 'top')" id="nav-top"><div class="nav-icon">🏆</div><span>Топ</span></button>
+        <button class="nav-item" onclick="switchNav(this, 'profile')" id="nav-profile"><div class="nav-icon">👤</div><span>Профиль</span></button>
+        <button class="nav-item hidden" onclick="switchNav(this, 'admin')" id="nav-admin"><div class="nav-icon">🔧</div><span>Админ</span></button>
     </div>
 </div>
 
@@ -582,10 +582,29 @@ const BONUS_AMOUNT = 10000;
 const BONUS_COOLDOWN = 24 * 60 * 60 * 1000;
 const MAX_BALANCE = 100000000000;
 
-let tg = window.Telegram.WebApp;
-tg.ready(); tg.expand();
-tg.setHeaderColor('#0a0a0f');
-tg.setBackgroundColor('#0a0a0f');
+// ========== SAFE TELEGRAM WEBAPP INIT ==========
+let tg = null;
+let tgReady = false;
+
+try {
+    if (window.Telegram && window.Telegram.WebApp) {
+        tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('#0a0a0f');
+        tg.setBackgroundColor('#0a0a0f');
+        tgReady = true;
+    }
+} catch (e) {
+    console.log('Telegram WebApp not available, running in standalone mode');
+}
+
+// Safe wrapper for tg methods
+function tgSafe(method, ...args) {
+    if (tg && typeof tg[method] === 'function') {
+        try { tg[method](...args); } catch(e) {}
+    }
+}
 
 const LS = {
     get: (k) => { try { return JSON.parse(localStorage.getItem('jscasino_' + k)); } catch(e) { return null; } },
@@ -621,7 +640,7 @@ function saveUserData(uid, d) {
 function updateTop(uid, d) {
     let t = LS.get('top') || {};
     t[uid] = {
-        name: d.nickname || ('ÐÐ³ÑÐ¾Ðº ' + uid),
+        name: d.nickname || ('Игрок ' + uid),
         balance: d.balance,
         games: d.games,
         wins: d.wins
@@ -662,18 +681,19 @@ function updateBotStats(win, bet, isWin) {
 let currentBalanceDisplay = 0;
 function animateBalance(target, isWin) {
     let el = document.querySelector('.balance-amount');
-    el.classList.add('pulse');
+    if (el) el.classList.add('pulse');
     let start = currentBalanceDisplay;
     let diff = target - start;
     let steps = 20, step = 0;
     let interval = setInterval(() => {
         step++;
         let val = Math.floor(start + (diff * step / steps));
-        document.getElementById('user-balance').textContent = val.toLocaleString();
+        let balEl = document.getElementById('user-balance');
+        if (balEl) balEl.textContent = val.toLocaleString();
         if (step >= steps) {
             clearInterval(interval);
             currentBalanceDisplay = target;
-            el.classList.remove('pulse');
+            if (el) el.classList.remove('pulse');
         }
     }, 30);
 }
@@ -700,572 +720,85 @@ function spawnConfetti() {
 
 // Toast
 function showToast(msg) {
-    tg.showAlert(msg);
-}
+    if (tgReady && tg.showAlert) {
+        try { tg.showAlert(msg); } catch(e) {}
+    } else {
+        alert(msgИзучил коды и документацию TeleBotHost. Вижу проблему.
 
-// Init
+## Проблема с застреванием на загрузке
+
+Ваш HTML-код (WebApp) зависит от `localStorage` для хранения данных пользователя. Когда WebApp открывается **внутри Telegram**, `localStorage` работает. Но при хостинге через TeleBotHost через `res.render()` или `Webapp.getUrl()` — контекст может отличаться, и главная проблема в другом:
+
+**Корень проблемы:** Ваш WebApp использует `tg.initDataUnsafe.user` для получения ID пользователя. Если `initDataUnsafe` пустой или `user` отсутствует (что бывает при прямом открытии ссылки вне Telegram, или если WebApp неправильно инициализирован), код создаёт мок-пользователя с `uid = 999999`, но при этом функция `hideLoading()` вызывается только в конце `init()`. Если где-то в `init()` происходит ошибка до вызова `hideLoading()` — экран загрузки остаётся навсегда.
+
+Также критическая проблема: **TeleBotHost не хостит статические HTML-файлы напрямую** как GitHub Pages. Вы используете `res.render()` для отдачи HTML, но в документации TeleBotHost `res.render()` рендерит **код другой команды** как ответ, а не статический файл. Ваш WebApp хостится на `flakestan65-lang.github.io` — это GitHub Pages, а не TeleBotHost.
+
+## Что нужно исправить
+
+### 1. Исправьте инициализацию WebApp (критично)
+
+Добавьте защиту от ошибок и таймаут для скрытия загрузки:
+
+
 function init() {
-    const id = tg.initDataUnsafe;
+    try {
+        const id = tg.initDataUnsafe;
 
-    // If not in Telegram, create mock user for testing
-    if (!id || !id.user) {
-        console.log('Not in Telegram, using mock user');
-        myUid = 999999;
-        isAdmin = false;
-        let name = 'Ð¢ÐµÑÑ';
-        document.getElementById('user-avatar').textContent = 'Ð¢';
-        document.getElementById('profile-avatar').textContent = 'Ð¢';
+        if (!id || !id.user) {
+            console.log('Not in Telegram, using mock user');
+            myUid = 999999;
+            isAdmin = false;
+            let name = 'Тест';
+            document.getElementById('user-avatar').textContent = 'Т';
+            document.getElementById('profile-avatar').textContent = 'Т';
+
+            let d = getUserData(myUid);
+            if (!d.nickname) { d.nickname = name; saveUserData(myUid, d); }
+            currentBalanceDisplay = d.balance;
+            updateBalanceDisplay();
+            updateProfileUI();
+            hideLoading();
+            return;
+        }
+        
+        myUid = id.user.id;
+        isAdmin = (myUid === ADMIN_ID);
+        let name = id.user.first_name || 'Игрок';
+        document.getElementById('user-avatar').textContent = name.charAt(0).toUpperCase();
+        document.getElementById('profile-avatar').textContent = name.charAt(0).toUpperCase();
 
         let d = getUserData(myUid);
-        if (!d.nickname) { d.nickname = name; saveUserData(myUid, d); }
+        if (!d.nickname) {
+            d.nickname = name;
+            saveUserData(myUid, d);
+        }
+        currentBalanceDisplay = d.balance;
+
+        if (isAdmin) {
+            document.getElementById('nav-admin').classList.remove('hidden');
+        }
+
+        updateBalanceDisplay();
+        updateProfileUI();
+        hideLoading();
+    } catch (e) {
+        console.error('Init error:', e);
+        // Fallback: показываем интерфейс даже при ошибке
+        myUid = 999999;
+        let d = getUserData(myUid);
         currentBalanceDisplay = d.balance;
         updateBalanceDisplay();
         updateProfileUI();
         hideLoading();
-        return;
-    }
-    myUid = id.user.id;
-    isAdmin = (myUid === ADMIN_ID);
-    let name = id.user.first_name || 'ÐÐ³ÑÐ¾Ðº';
-    document.getElementById('user-avatar').textContent = name.charAt(0).toUpperCase();
-    document.getElementById('profile-avatar').textContent = name.charAt(0).toUpperCase();
-
-    let d = getUserData(myUid);
-    if (!d.nickname) {
-        d.nickname = name;
-        saveUserData(myUid, d);
-    }
-    currentBalanceDisplay = d.balance;
-
-    if (isAdmin) {
-        document.getElementById('nav-admin').classList.remove('hidden');
-    }
-
-    updateBalanceDisplay();
-    updateProfileUI();
-    hideLoading();
-}
-
-function updateBalanceDisplay() {
-    let d = getUserData(myUid);
-    document.getElementById('user-balance').textContent = d.balance.toLocaleString();
-}
-
-function updateProfileUI() {
-    let d = getUserData(myUid);
-    document.getElementById('profile-nick').textContent = d.nickname;
-    document.getElementById('profile-id').textContent = 'ID: ' + myUid;
-    document.getElementById('profile-balance').textContent = d.balance.toLocaleString() + ' JScoin';
-    document.getElementById('profile-games').textContent = d.games;
-    document.getElementById('profile-wins').textContent = d.wins;
-    document.getElementById('profile-losses').textContent = d.losses;
-    let wr = d.games > 0 ? ((d.wins / d.games) * 100).toFixed(1) : 0;
-    document.getElementById('profile-winrate').textContent = wr + '%';
-    document.getElementById('profile-won').textContent = '+' + d.totalWon.toLocaleString();
-    document.getElementById('profile-lost').textContent = '-' + d.totalLost.toLocaleString();
-}
-
-// Live counter
-let liveCount = 1247;
-setInterval(() => {
-    liveCount += Math.floor(Math.random() * 7) - 3;
-    document.getElementById('live-players').textContent = liveCount.toLocaleString();
-}, 3000);
-
-// Navigation
-function switchNav(el, tab) {
-    tg.HapticFeedback.impactOccurred('light');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    el.classList.add('active');
-
-    // Hide all main screens
-    document.querySelectorAll('.screen-content').forEach(s => s.classList.add('hidden'));
-    // Hide all game screens
-    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
-
-    currentGame = null;
-
-    if (tab === 'home') {
-        document.getElementById('screen-home').classList.remove('hidden');
-    } else if (tab === 'games') {
-        document.getElementById('screen-games').classList.remove('hidden');
-    } else if (tab === 'top') {
-        document.getElementById('screen-top').classList.remove('hidden');
-        renderTop();
-    } else if (tab === 'profile') {
-        document.getElementById('screen-profile').classList.remove('hidden');
-        updateProfileUI();
-    } else if (tab === 'bonus') {
-        document.getElementById('screen-bonus').classList.remove('hidden');
-        checkBonusStatus();
-    } else if (tab === 'admin' && isAdmin) {
-        document.getElementById('screen-admin').classList.remove('hidden');
-        renderAdmin();
-    }
-    currentScreen = tab;
-}
-
-// Bonus
-function checkBonusStatus() {
-    let d = getUserData(myUid), now = Date.now(), el = now - d.lastBonus;
-    let btn = document.getElementById('bonus-btn'), timer = document.getElementById('bonus-timer'), amt = document.getElementById('bonus-amount');
-    if (el < BONUS_COOLDOWN && d.lastBonus > 0) {
-        let r = BONUS_COOLDOWN - el, h = Math.floor(r/(60*60*1000)), m = Math.floor((r%(60*60*1000))/(60*1000));
-        btn.disabled = true; btn.textContent = 'â³ ÐÐ¾Ð½ÑÑ Ð½ÐµÐ´Ð¾ÑÑÑÐ¿ÐµÐ½';
-        timer.textContent = 'Ð¡Ð»ÐµÐ´ÑÑÑÐ¸Ð¹ ÑÐµÑÐµÐ·: ' + h + 'Ñ ' + m + 'Ð¼Ð¸Ð½'; timer.classList.remove('hidden'); amt.classList.add('hidden');
-    } else {
-        btn.disabled = false; btn.textContent = 'ð° ÐÐ¾Ð»ÑÑÐ¸ÑÑ Ð±Ð¾Ð½ÑÑ';
-        timer.classList.add('hidden'); amt.classList.remove('hidden');
+        showToast('Ошибка инициализации: ' + e.message);
     }
 }
 
-function claimBonus() {
-    let d = getUserData(myUid), now = Date.now();
-    if (d.lastBonus > 0 && (now - d.lastBonus) < BONUS_COOLDOWN) { showToast('â³ ÐÐ¾Ð½ÑÑ ÑÐ¶Ðµ Ð¿Ð¾Ð»ÑÑÐµÐ½!'); return; }
-    tg.HapticFeedback.impactOccurred('medium');
-    d.balance += BONUS_AMOUNT; d.lastBonus = now;
-    saveUserData(myUid, d);
-    animateBalance(d.balance, true); spawnConfetti();
-    updateBalanceDisplay(); updateProfileUI();
-    checkBonusStatus();
-    showToast('ð +10,000 JScoin Ð¿Ð¾Ð»ÑÑÐµÐ½Ð¾!');
-}
-
-// Top
-function renderTop() {
-    let list = getTopList();
-    let container = document.getElementById('top-list');
-    let empty = document.getElementById('top-empty');
-    let mypos = document.getElementById('top-mypos');
-
-    if (list.length === 0) {
-        container.innerHTML = '';
-        empty.classList.remove('hidden');
-        mypos.classList.add('hidden');
-        return;
+// Добавьте резервный таймаут на случай, если init() вообще не вызовется
+setTimeout(() => {
+    const loading = document.getElementById('loading');
+    if (loading && !loading.classList.contains('hidden')) {
+        console.warn('Force hide loading after timeout');
+        hideLoading();
     }
-
-    empty.classList.add('hidden');
-    let medals = ['gold','silver','bronze'];
-    let medalEmoji = ['ð¥','ð¥','ð¥'];
-
-    let html = '';
-    list.slice(0, 20).forEach((u, i) => {
-        let rank = i < 3 ? medals[i] : 'other';
-        let emoji = i < 3 ? medalEmoji[i] : (i + 1);
-        let wr = u.games > 0 ? ((u.wins / u.games) * 100).toFixed(0) : 0;
-        html += '<div class="top-item">' +
-            '<div class="top-rank ' + rank + '">' + emoji + '</div>' +
-            '<div class="top-info"><div class="top-name">' + escapeHtml(u.name) + '</div><div class="top-stats">ð® ' + u.games + ' | ð ' + u.wins + ' | ð ' + wr + '%</div></div>' +
-            '<div class="top-balance">' + u.balance.toLocaleString() + '</div>' +
-            '</div>';
-    });
-    container.innerHTML = html;
-
-    let myPos = list.findIndex(u => u.id === myUid) + 1;
-    if (myPos > 0) {
-        mypos.textContent = 'ð ÐÐ°ÑÐ° Ð¿Ð¾Ð·Ð¸ÑÐ¸Ñ: #' + myPos;
-        mypos.classList.remove('hidden');
-    } else {
-        mypos.classList.add('hidden');
-    }
-}
-
-function escapeHtml(text) {
-    let div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// Admin
-function renderAdmin() {
-    let s = getBotStats();
-    document.getElementById('admin-users').textContent = s.users.toLocaleString();
-    document.getElementById('admin-won').textContent = s.totalWon.toLocaleString();
-    document.getElementById('admin-lost').textContent = s.totalLost.toLocaleString();
-    document.getElementById('admin-turnover').textContent = s.turnover.toLocaleString();
-    document.getElementById('admin-profit').textContent = s.profit.toLocaleString();
-}
-
-function adminGive() {
-    if (!isAdmin) return;
-    let tid = parseInt(document.getElementById('admin-target-id').value);
-    let amt = parseInt(document.getElementById('admin-amount').value);
-    if (!tid || !amt || amt <= 0) { showToast('â Ð£ÐºÐ°Ð¶Ð¸ÑÐµ ID Ð¸ ÑÑÐ¼Ð¼Ñ'); return; }
-    let d = getUserData(tid);
-    let newBal = d.balance + amt;
-    if (newBal > MAX_BALANCE) newBal = MAX_BALANCE;
-    d.balance = newBal;
-    saveUserData(tid, d);
-    showToast('â ÐÑÐ´Ð°Ð½Ð¾ ' + amt.toLocaleString() + ' JScoin Ð¸Ð³ÑÐ¾ÐºÑ ' + tid);
-    document.getElementById('admin-target-id').value = '';
-    document.getElementById('admin-amount').value = '';
-    renderAdmin();
-}
-
-function adminBroadcast() {
-    if (!isAdmin) return;
-    let text = document.getElementById('admin-broadcast-text').value.trim();
-    if (!text) { showToast('â ÐÐ²ÐµÐ´Ð¸ÑÐµ ÑÐµÐºÑÑ'); return; }
-    showToast('ð¢ Ð¡ÐºÐ¾Ð¿Ð¸ÑÑÐ¹ÑÐµ ÑÐµÐºÑÑ Ð¸ Ð¾ÑÐ¿ÑÐ°Ð²ÑÑÐµ ÑÐµÑÐµÐ· Ð±Ð¾ÑÐ°:
-
-' + text.substring(0, 100) + (text.length > 100 ? '...' : ''));
-    document.getElementById('admin-broadcast-result').textContent = 'Ð¢ÐµÐºÑÑ ÑÐºÐ¾Ð¿Ð¸ÑÐ¾Ð²Ð°Ð½. ÐÑÐ¿ÑÐ°Ð²ÑÑÐµ ÑÐµÑÐµÐ· Ð±Ð¾ÑÐ° ÐºÐ¾Ð¼Ð°Ð½Ð´Ð¾Ð¹ /admin â Ð Ð°ÑÑÑÐ»ÐºÐ°';
-}
-
-// Game screens
-function openGameScreen(game) {
-    tg.HapticFeedback.impactOccurred('medium');
-    currentGame = game;
-    // Hide all main screens
-    document.querySelectorAll('.screen-content').forEach(s => s.classList.add('hidden'));
-    // Show game screen
-    document.getElementById('game-' + game).classList.add('active');
-    // Reset game state
-    resetGame(game);
-}
-
-function closeGameScreen() {
-    tg.HapticFeedback.impactOccurred('light');
-    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
-    currentGame = null;
-    // Go back to previous screen
-    if (currentScreen === 'games') {
-        document.getElementById('screen-games').classList.remove('hidden');
-    } else {
-        document.getElementById('screen-home').classList.remove('hidden');
-    }
-}
-
-function resetGame(game) {
-    if (game === 'mines') {
-        document.getElementById('mines-board').classList.add('hidden');
-        document.getElementById('mines-info').innerHTML = '';
-        document.getElementById('mines-start-btn').classList.remove('hidden');
-    } else if (game === 'crash') {
-        document.getElementById('crash-display').classList.add('hidden');
-        document.getElementById('crash-info').innerHTML = '';
-    } else if (game === 'roulette') {
-        document.getElementById('roulette-result').classList.add('hidden');
-    } else if (game === 'dice') {
-        document.getElementById('dice-result').classList.add('hidden');
-    } else if (game === 'coin') {
-        document.getElementById('coin-result').classList.add('hidden');
-    } else if (game === 'blackjack') {
-        document.getElementById('bj-table').classList.add('hidden');
-        document.getElementById('bj-controls').classList.add('hidden');
-        document.getElementById('bj-info').innerHTML = '';
-        document.getElementById('bj-start-btn').classList.remove('hidden');
-    } else if (game === 'scratch') {
-        document.getElementById('scratch-area').classList.add('hidden');
-        document.getElementById('scratch-info').innerHTML = '';
-    }
-}
-
-function checkBet(inputId) {
-    let bet = parseInt(document.getElementById(inputId).value);
-    let d = getUserData(myUid);
-    if (!bet || bet < 10) { showToast('â ÐÐ¸Ð½Ð¸Ð¼Ð°Ð»ÑÐ½Ð°Ñ ÑÑÐ°Ð²ÐºÐ°: 10 JScoin'); return 0; }
-    if (bet > d.balance) { showToast('â ÐÐµÐ´Ð¾ÑÑÐ°ÑÐ¾ÑÐ½Ð¾ ÑÑÐµÐ´ÑÑÐ²! ÐÐ°Ð»Ð°Ð½Ñ: ' + d.balance.toLocaleString()); return 0; }
-    return bet;
-}
-
-function finishGame(win, bet, isWin) {
-    let d = getUserData(myUid);
-    if (isWin) {
-        d.balance += win; d.games++; d.wins++; d.totalWon += win;
-        updateBotStats(win, bet, true); spawnConfetti(); animateBalance(d.balance, true);
-    } else {
-        d.games++; d.losses++; d.totalLost += bet;
-        updateBotStats(0, bet, false); animateBalance(d.balance, false);
-    }
-    saveUserData(myUid, d);
-    updateBalanceDisplay(); updateProfileUI();
-}
-
-// ===== MINES =====
-let minesField = [], minesBet = 0, minesCount = 0, minesOpened = 0;
-function startMines() {
-    let bet = checkBet('mines-bet'); if (!bet) return;
-    minesBet = bet; minesCount = parseInt(document.getElementById('mines-count').value); minesOpened = 0;
-    minesField = Array(25).fill(0); let placed = 0;
-    while (placed < minesCount) { let p = Math.floor(Math.random() * 25); if (!minesField[p]) { minesField[p] = 1; placed++; } }
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false);
-    let board = document.getElementById('mines-board'); board.innerHTML = ''; board.classList.remove('hidden');
-    for (let i = 0; i < 25; i++) { let c = document.createElement('button'); c.className = 'mine-cell-v2'; c.textContent = 'â¬'; c.onclick = () => openMine(i, c); board.appendChild(c); }
-    document.getElementById('mines-start-btn').classList.add('hidden');
-    updateMinesInfo();
-}
-function updateMinesInfo() {
-    let mult = 1 + (minesOpened * (0.3 + minesCount * 0.05));
-    let win = Math.floor(minesBet * mult);
-    let nextMult = 1 + ((minesOpened + 1) * (0.3 + minesCount * 0.05));
-    let nextWin = Math.floor(minesBet * nextMult);
-    document.getElementById('mines-info').innerHTML =
-        'ð£ ÐÐ¸Ð½: ' + minesCount + ' | â ÐÑÐºÑÑÑÐ¾: ' + minesOpened + '<br>' +
-        'ð Ð¡ÐµÐ¹ÑÐ°Ñ: <b>' + win.toLocaleString() + '</b> JScoin (x' + mult.toFixed(2) + ')<br>' +
-        'ð ÐÐ°Ð»ÐµÐµ: x' + nextMult.toFixed(2) + ' = ' + nextWin.toLocaleString() + '<br>' +
-        '<button class="game-btn secondary" onclick="cashoutMines()" style="margin-top:12px;">ð° ÐÐ°Ð±ÑÐ°ÑÑ ' + win.toLocaleString() + '</button>';
-}
-function openMine(idx, cell) {
-    if (minesField[idx]) {
-        cell.textContent = 'ð¥'; cell.classList.add('bomb');
-        document.querySelectorAll('.mine-cell-v2').forEach((c, i) => {
-            c.disabled = true;
-            if (minesField[i]) { c.textContent = 'ð£'; c.classList.add('bomb'); }
-            else if (i !== idx) { c.textContent = 'â'; c.classList.add('revealed'); }
-        });
-        finishGame(0, minesBet, false);
-        document.getElementById('mines-info').innerHTML = 'ð¥ <b>ÐÐÐÐÐ!</b><br>â -' + minesBet.toLocaleString() + ' JScoin<br><button class="game-btn" onclick="startMines()" style="margin-top:12px;">ð Ð¡Ð½Ð¾Ð²Ð°</button>';
-    } else {
-        minesOpened++; cell.textContent = 'â'; cell.classList.add('revealed'); cell.disabled = true;
-        updateMinesInfo();
-    }
-}
-function cashoutMines() {
-    if (minesOpened === 0) return;
-    let mult = 1 + (minesOpened * (0.3 + minesCount * 0.05));
-    let win = Math.floor(minesBet * mult);
-    document.querySelectorAll('.mine-cell-v2').forEach((c, i) => { c.disabled = true; if (minesField[i]) { c.textContent = 'ð£'; c.classList.add('bomb'); } });
-    finishGame(win, minesBet, true);
-    document.getElementById('mines-info').innerHTML = 'ð° <b>ÐÐÐÐ ÐÐÐ!</b><br>ð +' + win.toLocaleString() + ' JScoin<br><button class="game-btn" onclick="startMines()" style="margin-top:12px;">ð Ð¡Ð½Ð¾Ð²Ð°</button>';
-}
-
-// ===== CRASH =====
-function playCrash() {
-    let bet = checkBet('crash-bet'); if (!bet) return;
-    let target = parseFloat(document.getElementById('crash-target').value);
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    let display = document.getElementById('crash-display'), multDiv = document.getElementById('crash-multiplier');
-    display.classList.remove('hidden'); multDiv.className = 'crash-multiplier-v2';
-    let current = 1.00, interval = setInterval(() => { current += Math.random() * 0.12; multDiv.textContent = 'x' + current.toFixed(2); }, 50);
-    let r = Math.random(), crashPoint = r < 0.01 ? 1.00 : Math.min(50, 1 + Math.pow(Math.random(), -0.5) * 0.5); crashPoint = Math.floor(crashPoint * 100) / 100;
-    setTimeout(() => {
-        clearInterval(interval); multDiv.textContent = 'x' + crashPoint.toFixed(2);
-        if (crashPoint >= target) {
-            let win = Math.floor(bet * target); multDiv.classList.add('win');
-            finishGame(win, bet, true);
-            document.getElementById('crash-info').innerHTML = 'â <b>Ð£Ð¡ÐÐÐ¥!</b><br>ð° +' + win.toLocaleString() + ' JScoin<br><button class="game-btn" onclick="playCrash()" style="margin-top:12px;">ð ÐÑÑ</button>';
-        } else {
-            multDiv.classList.add('lose');
-            finishGame(0, bet, false);
-            document.getElementById('crash-info').innerHTML = 'ð¥ <b>ÐÐ ÐÐ¨!</b><br>â -' + bet.toLocaleString() + ' JScoin<br><button class="game-btn" onclick="playCrash()" style="margin-top:12px;">ð ÐÑÑ</button>';
-        }
-    }, 1500 + Math.random() * 1000);
-}
-
-// ===== ROULETTE =====
-function playRoulette(type) {
-    let bet = checkBet('roulette-bet'); if (!bet) return;
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    let num = Math.floor(Math.random() * 37), color = num === 0 ? 'green' : (num % 2 === 0 ? 'black' : 'red');
-    let ball = document.getElementById('roulette-ball'), result = document.getElementById('roulette-result'), wheel = document.getElementById('roulette-wheel');
-    result.classList.remove('hidden');
-    wheel.classList.remove('spinning'); void wheel.offsetWidth; wheel.classList.add('spinning');
-    ball.className = 'roulette-ball-v2'; ball.textContent = '?';
-    setTimeout(() => {
-        ball.className = 'roulette-ball-v2 ' + color; ball.textContent = num;
-        let win = 0, isWin = false;
-        if (type === 'red' && color === 'red') { win = bet * 2; isWin = true; }
-        else if (type === 'black' && color === 'black') { win = bet * 2; isWin = true; }
-        else if (type === 'green' && color === 'green') { win = bet * 14; isWin = true; }
-        else if (type === 'even' && num !== 0 && num % 2 === 0) { win = bet * 2; isWin = true; }
-        else if (type === 'odd' && num % 2 === 1) { win = bet * 2; isWin = true; }
-        else if (type === '1-12' && num >= 1 && num <= 12) { win = Math.floor(bet * 2.98); isWin = true; }
-        else if (type === '13-24' && num >= 13 && num <= 24) { win = Math.floor(bet * 2.98); isWin = true; }
-        else if (type === '25-36' && num >= 25 && num <= 36) { win = Math.floor(bet * 2.98); isWin = true; }
-        if (isWin) { finishGame(win, bet, true); document.getElementById('roulette-info').innerHTML = '<div class="result-win">â ÐÐÐÐÐÐ!</div><div class="result-amount" style="color:#4ade80;">+' + win.toLocaleString() + ' JScoin</div>'; }
-        else { finishGame(0, bet, false); document.getElementById('roulette-info').innerHTML = '<div class="result-lose">â ÐÐ ÐÐÐÐ Ð«Ð¨</div><div class="result-amount" style="color:#f87171;">-' + bet.toLocaleString() + ' JScoin</div>'; }
-    }, 2500);
-}
-
-// ===== DICE =====
-function playDice(type) {
-    let bet = checkBet('dice-bet'); if (!bet) return;
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    let dice = document.getElementById('dice-value'), result = document.getElementById('dice-result');
-    result.classList.remove('hidden'); dice.classList.add('rolling'); dice.textContent = '?';
-    setTimeout(() => {
-        let roll = Math.floor(Math.random() * 6) + 1; dice.classList.remove('rolling'); dice.textContent = roll;
-        let win = 0, isWin = false;
-        if (type === '1' && roll === 1) { win = bet * 5; isWin = true; }
-        else if (type === '2' && roll === 2) { win = bet * 5; isWin = true; }
-        else if (type === '3' && roll === 3) { win = bet * 5; isWin = true; }
-        else if (type === '4' && roll === 4) { win = bet * 5; isWin = true; }
-        else if (type === '5' && roll === 5) { win = bet * 5; isWin = true; }
-        else if (type === '6' && roll === 6) { win = bet * 5; isWin = true; }
-        else if (type === 'even' && roll % 2 === 0) { win = bet * 2; isWin = true; }
-        else if (type === 'odd' && roll % 2 === 1) { win = bet * 2; isWin = true; }
-        else if (type === 'high' && roll >= 4) { win = bet * 2; isWin = true; }
-        else if (type === 'low' && roll <= 3) { win = bet * 2; isWin = true; }
-        if (isWin) { finishGame(win, bet, true); document.getElementById('dice-info').innerHTML = '<div class="result-win">â ÐÐÐÐÐÐ!</div><div class="result-amount" style="color:#4ade80;">+' + win.toLocaleString() + ' JScoin</div>'; }
-        else { finishGame(0, bet, false); document.getElementById('dice-info').innerHTML = '<div class="result-lose">â ÐÐ ÐÐÐÐ Ð«Ð¨</div><div class="result-amount" style="color:#f87171;">-' + bet.toLocaleString() + ' JScoin</div>'; }
-    }, 600);
-}
-
-// ===== COIN =====
-function playCoin(side) {
-    let bet = checkBet('coin-bet'); if (!bet) return;
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    let coin = document.getElementById('coin-icon'), result = document.getElementById('coin-result');
-    result.classList.remove('hidden'); coin.classList.add('flipping');
-    setTimeout(() => {
-        let flip = Math.floor(Math.random() * 2) + 1, resSide = flip === 1 ? 'heads' : 'tails', resName = flip === 1 ? 'ð¦ ÐÐ ÐÐ' : 'ðª Ð ÐÐ¨ÐÐ';
-        coin.classList.remove('flipping'); coin.textContent = flip === 1 ? 'ð¦' : 'ðª';
-        if (side === resSide) { let win = bet * 2; finishGame(win, bet, true); document.getElementById('coin-info').innerHTML = '<div class="result-win">â ÐÐÐÐÐÐ!</div><div style="font-size:16px;margin:4px 0;">' + resName + '</div><div class="result-amount" style="color:#4ade80;">+' + win.toLocaleString() + ' JScoin</div>'; }
-        else { finishGame(0, bet, false); document.getElementById('coin-info').innerHTML = '<div class="result-lose">â ÐÐ ÐÐÐÐ Ð«Ð¨</div><div style="font-size:16px;margin:4px 0;">' + resName + '</div><div class="result-amount" style="color:#f87171;">-' + bet.toLocaleString() + ' JScoin</div>'; }
-    }, 600);
-}
-
-// ===== BLACKJACK =====
-let bjDeck = [], bjPlayerHand = [], bjDealerHand = [], bjBet = 0, bjGameActive = false;
-const BJ_SUITS = ['â ','â¥','â¦','â£'];
-const BJ_RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-function createDeck() {
-    let deck = [];
-    for (let s of BJ_SUITS) for (let r of BJ_RANKS) deck.push({ suit: s, rank: r, value: r === 'A' ? 11 : (['J','Q','K'].includes(r) ? 10 : parseInt(r)) });
-    for (let i = deck.length - 1; i > 0; i--) { let j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
-    return deck;
-}
-function bjScore(hand) {
-    let score = 0, aces = 0;
-    for (let c of hand) { score += c.value; if (c.rank === 'A') aces++; }
-    while (score > 21 && aces > 0) { score -= 10; aces--; }
-    return score;
-}
-function renderCard(card, hidden, delay) {
-    let isRed = card.suit === 'â¥' || card.suit === 'â¦';
-    let cls = 'bj-card-v2' + (isRed ? ' red' : '') + (hidden ? ' back' : '');
-    let txt = hidden ? '' : (card.rank + card.suit);
-    let style = delay ? 'animation-delay:' + delay + 's;' : '';
-    return '<div class="' + cls + '" style="' + style + '">' + txt + '</div>';
-}
-function startBJ() {
-    let bet = checkBet('bj-bet'); if (!bet) return;
-    bjBet = bet; bjGameActive = true;
-    bjDeck = createDeck();
-    bjPlayerHand = [bjDeck.pop(), bjDeck.pop()];
-    bjDealerHand = [bjDeck.pop(), bjDeck.pop()];
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    document.getElementById('bj-start-btn').classList.add('hidden');
-    document.getElementById('bj-table').classList.remove('hidden');
-    document.getElementById('bj-controls').classList.remove('hidden');
-    document.getElementById('bj-info').innerHTML = '';
-    bjUpdateDisplay();
-    if (bjScore(bjPlayerHand) === 21) setTimeout(bjStand, 800);
-}
-function bjUpdateDisplay() {
-    let pScore = bjScore(bjPlayerHand), dScore = bjScore(bjDealerHand);
-    document.getElementById('bj-dealer-hand').innerHTML = bjDealerHand.map((c, i) => renderCard(c, i === 1 && bjGameActive, i * 0.1)).join('');
-    document.getElementById('bj-dealer-score').textContent = bjGameActive ? bjScore([bjDealerHand[0]]) + ' + ?' : dScore;
-    document.getElementById('bj-player-hand').innerHTML = bjPlayerHand.map((c, i) => renderCard(c, false, i * 0.1)).join('');
-    document.getElementById('bj-player-score').textContent = pScore;
-}
-function bjHit() {
-    if (!bjGameActive) return;
-    bjPlayerHand.push(bjDeck.pop()); bjUpdateDisplay();
-    if (bjScore(bjPlayerHand) > 21) bjEnd(false, 'ð¥ ÐÐµÑÐµÐ±Ð¾Ñ! ÐÑ Ð¿ÑÐ¾Ð¸Ð³ÑÐ°Ð»Ð¸.');
-}
-function bjStand() {
-    if (!bjGameActive) return;
-    bjGameActive = false; bjUpdateDisplay();
-    let dealerInterval = setInterval(() => {
-        if (bjScore(bjDealerHand) < 17) { bjDealerHand.push(bjDeck.pop()); bjUpdateDisplay(); }
-        else { clearInterval(dealerInterval); bjResolve(); }
-    }, 700);
-}
-function bjResolve() {
-    let pScore = bjScore(bjPlayerHand), dScore = bjScore(bjDealerHand);
-    let win = false, msg = '', payout = 0;
-    if (pScore > 21) { msg = 'ð¥ ÐÐµÑÐµÐ±Ð¾Ñ! ÐÑ Ð¿ÑÐ¾Ð¸Ð³ÑÐ°Ð»Ð¸.'; }
-    else if (dScore > 21) { win = true; payout = bjBet * 2; msg = 'â ÐÐ¸Ð»ÐµÑ Ð¿ÐµÑÐµÐ±ÑÐ°Ð»! +' + payout.toLocaleString() + ' JScoin'; }
-    else if (pScore === 21 && bjPlayerHand.length === 2) { win = true; payout = Math.floor(bjBet * 2.5); msg = 'ð ÐÐÐ­ÐÐÐÐÐ! +' + payout.toLocaleString() + ' JScoin'; }
-    else if (pScore > dScore) { win = true; payout = bjBet * 2; msg = 'â ÐÑ Ð²ÑÐ¸Ð³ÑÐ°Ð»Ð¸! +' + payout.toLocaleString() + ' JScoin'; }
-    else if (pScore < dScore) { msg = 'â ÐÐ¸Ð»ÐµÑ Ð²ÑÐ¸Ð³ÑÐ°Ð».'; }
-    else { win = true; payout = bjBet; msg = 'ð¤ ÐÐ¸ÑÑÑ! Ð¡ÑÐ°Ð²ÐºÐ° Ð²Ð¾Ð·Ð²ÑÐ°ÑÐµÐ½Ð°.'; }
-    bjEnd(win, msg, payout);
-}
-function bjEnd(win, msg, payout) {
-    bjGameActive = false;
-    document.getElementById('bj-controls').classList.add('hidden');
-    document.getElementById('bj-info').innerHTML = msg + '<br><button class="game-btn" onclick="bjReset()" style="margin-top:12px;">ð Ð¡Ð½Ð¾Ð²Ð°</button>';
-    if (win && payout > 0) finishGame(payout, bjBet, true);
-    else if (!win) finishGame(0, bjBet, false);
-}
-function bjReset() {
-    document.getElementById('bj-start-btn').classList.remove('hidden');
-    document.getElementById('bj-table').classList.add('hidden');
-    document.getElementById('bj-controls').classList.add('hidden');
-    document.getElementById('bj-info').innerHTML = '';
-    document.getElementById('bj-bet').value = '';
-}
-
-// ===== SCRATCH =====
-let scratchRevealed = false, scratchPrize = 0, scratchBet = 0;
-function startScratch() {
-    let bet = checkBet('scratch-bet'); if (!bet) return;
-    scratchBet = bet; scratchRevealed = false;
-    let r = Math.random();
-    if (r < 0.4) scratchPrize = 0;
-    else if (r < 0.7) scratchPrize = Math.floor(bet * 1.5);
-    else if (r < 0.9) scratchPrize = bet * 2;
-    else scratchPrize = bet * 5;
-    let d = getUserData(myUid); d.balance -= bet; saveUserData(myUid, d); animateBalance(d.balance, false); updateBalanceDisplay();
-    document.getElementById('scratch-area').classList.remove('hidden');
-    document.getElementById('scratch-info').innerHTML = '';
-    let prizeEl = document.getElementById('scratch-prize');
-    prizeEl.textContent = scratchPrize > 0 ? '+' + scratchPrize.toLocaleString() + ' JScoin' : 'â ÐÑÑÑÐ¾';
-    prizeEl.classList.remove('scratch-revealed');
-    let canvas = document.getElementById('scratch-canvas');
-    canvas.width = 280; canvas.height = 160;
-    let ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#9ca3af';
-    ctx.fillRect(0, 0, 280, 160);
-    ctx.fillStyle = '#6b7280';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('ð Ð¡ÐÐ¢Ð Ð ÐÐÐÐ¯', 140, 85);
-    let isDrawing = false;
-    function scratch(e) {
-        if (scratchRevealed) return;
-        let rect = canvas.getBoundingClientRect();
-        let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill();
-        let imageData = ctx.getImageData(0, 0, 280, 160);
-        let transparent = 0;
-        for (let i = 3; i < imageData.data.length; i += 4) if (imageData.data[i] === 0) transparent++;
-        if (transparent / (280 * 160) > 0.35) revealScratch();
-    }
-    canvas.onmousedown = () => isDrawing = true;
-    canvas.onmouseup = () => isDrawing = false;
-    canvas.onmousemove = (e) => { if (isDrawing) scratch(e); };
-    canvas.ontouchstart = (e) => { isDrawing = true; scratch(e); e.preventDefault(); };
-    canvas.ontouchend = () => isDrawing = false;
-    canvas.ontouchmove = (e) => { if (isDrawing) { scratch(e); e.preventDefault(); } };
-}
-function revealScratch() {
-    if (scratchRevealed) return;
-    scratchRevealed = true;
-    document.getElementById('scratch-prize').classList.add('scratch-revealed');
-    let canvas = document.getElementById('scratch-canvas');
-    let ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 280, 160);
-    if (scratchPrize > 0) {
-        finishGame(scratchPrize, scratchBet, true);
-        document.getElementById('scratch-info').innerHTML = '<div class="result-win">ð ÐÐÐÐÐÐ!</div><div class="result-amount" style="color:#4ade80;">+' + scratchPrize.toLocaleString() + ' JScoin</div><button class="game-btn" onclick="startScratch()" style="margin-top:12px;">ð ÐÑÑ</button>';
-    } else {
-        finishGame(0, scratchBet, false);
-        document.getElementById('scratch-info').innerHTML = '<div class="result-lose">â ÐÐ£Ð¡Ð¢Ð</div><div class="result-amount" style="color:#f87171;">-' + scratchBet.toLocaleString() + ' JScoin</div><button class="game-btn" onclick="startScratch()" style="margin-top:12px;">ð ÐÑÑ</button>';
-    }
-}
-
-function hideLoading() {
-    document.getElementById('loading').classList.add('hidden');
-}
-
-init();
-</script>
-</body>
-</html>
+}, 5000);
