@@ -703,16 +703,25 @@ function showToast(msg) {
     tg.showAlert(msg);
 }
 
-// Loading
-setTimeout(() => {
-    document.getElementById('loading').classList.add('hidden');
-}, 1500);
-
 // Init
 function init() {
     const id = tg.initDataUnsafe;
+
+    // If not in Telegram, create mock user for testing
     if (!id || !id.user) {
-        document.getElementById('loading').innerHTML = '<div style="color:#ef4444;padding:40px;">ÐÑÐºÑÐ¾Ð¹ÑÐµ ÑÐµÑÐµÐ· Telegram</div>';
+        console.log('Not in Telegram, using mock user');
+        myUid = 999999;
+        isAdmin = false;
+        let name = 'Ð¢ÐµÑÑ';
+        document.getElementById('user-avatar').textContent = 'Ð¢';
+        document.getElementById('profile-avatar').textContent = 'Ð¢';
+
+        let d = getUserData(myUid);
+        if (!d.nickname) { d.nickname = name; saveUserData(myUid, d); }
+        currentBalanceDisplay = d.balance;
+        updateBalanceDisplay();
+        updateProfileUI();
+        hideLoading();
         return;
     }
     myUid = id.user.id;
@@ -734,6 +743,7 @@ function init() {
 
     updateBalanceDisplay();
     updateProfileUI();
+    hideLoading();
 }
 
 function updateBalanceDisplay() {
@@ -1249,6 +1259,10 @@ function revealScratch() {
         finishGame(0, scratchBet, false);
         document.getElementById('scratch-info').innerHTML = '<div class="result-lose">â ÐÐ£Ð¡Ð¢Ð</div><div class="result-amount" style="color:#f87171;">-' + scratchBet.toLocaleString() + ' JScoin</div><button class="game-btn" onclick="startScratch()" style="margin-top:12px;">ð ÐÑÑ</button>';
     }
+}
+
+function hideLoading() {
+    document.getElementById('loading').classList.add('hidden');
 }
 
 init();
