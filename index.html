@@ -233,7 +233,7 @@ body {
 @keyframes winPop { 0%{transform:scale(0.8)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
 @keyframes loseCrash { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
 
-/* ROULETTE — REAL WHEEL */
+/* ROULETTE */
 .roulette-outer { display: flex; flex-direction: column; align-items: center; padding: 10px 0; }
 .roulette-canvas-wrap { position: relative; width: 230px; height: 230px; margin: 0 auto 16px; }
 .roulette-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 22px solid #fbbf24; filter: drop-shadow(0 0 6px rgba(251,191,36,0.5)); z-index: 10; }
@@ -730,9 +730,11 @@ body {
         <button class="nav-item" onclick="switchNav(this,'top')" id="nav-top"><div class="nav-icon">🏆</div><span>Топ</span></button>
         <button class="nav-item" onclick="switchNav(this,'clans')" id="nav-clans"><div class="nav-icon">🏰</div><span>Кланы</span></button>
         <button class="nav-item" onclick="switchNav(this,'bonus')" id="nav-bonus"><div class="nav-icon">🎁</div><span>Бонус</span></button>
-        <button class="nav-item" onclick="switchNav(this,'pass')" id="nav-pass"><div class="nav-icon">⭐</div><span>Пасс</span></button>
-        <button class="nav-item" onclick="switchNav(this,'history')" id="nav-history"><div class="nav-icon">📋</div><span>История</span></button>
         <button class="nav-item" onclick="switchNav(this,'profile')" id="nav-profile"><div class="nav-icon">👤</div><span>Профиль</span></button>
+        <!-- скрытые кнопки, доступные через quick-actions на главной -->
+        <button class="nav-item hidden" onclick="switchNav(this,'history')" id="nav-history"><div class="nav-icon">📋</div><span>История</span></button>
+        <button class="nav-item hidden" onclick="switchNav(this,'pass')" id="nav-pass"><div class="nav-icon">⭐</div><span>Пасс</span></button>
+        <!-- Админ — показывается только для ID 7707487748 -->
         <button class="nav-item hidden" onclick="switchNav(this,'admin')" id="nav-admin"><div class="nav-icon">🔧</div><span>Админ</span></button>
     </div>
 </div>
@@ -891,7 +893,6 @@ function animateBalance(target) {
 function updateTodayChange() {
     let d = getUserData(myUid);
     let now = Date.now();
-    // reset day if more than 24h
     if (now - d.todayStart > 86400000) {
         d.todayStart = now; d.todayStartBalance = d.balance;
         saveUserData(myUid, d);
@@ -926,11 +927,9 @@ function updateProfileUI() {
     setT('profile-winrate', wr + '%');
     setT('profile-won', '+' + d.totalWon.toLocaleString('ru'));
     setT('profile-lost', '-' + d.totalLost.toLocaleString('ru'));
-    // avatar
     let name = (d.nickname || 'Игрок').charAt(0).toUpperCase();
     let setA = (id) => { let e=document.getElementById(id); if(e) e.textContent=name; };
     setA('user-avatar'); setA('profile-avatar');
-    // clan info
     renderProfileClan(d);
 }
 
@@ -1238,7 +1237,6 @@ function playCrash() {
     let bet = validateBet('crash-bet');
     if (!bet) return;
     let target = parseFloat(document.getElementById('crash-target').value);
-    // True house edge: 4%
     let houseEdge = 0.04;
     let chance = (1 / target) * (1 - houseEdge);
     let isWin = Math.random() < chance;
@@ -1250,7 +1248,6 @@ function playCrash() {
     btn.disabled = true;
     multiplierEl.className = 'crash-multiplier-v2';
     multiplierEl.textContent = 'x1.00';
-    // deduct bet
     let d = getUserData(myUid);
     d.balance -= bet;
     saveUserData(myUid, d);
@@ -1290,7 +1287,7 @@ function playCrash() {
     }, 80);
 }
 
-// ========== ROULETTE (REAL WHEEL) ==========
+// ========== ROULETTE ==========
 const ROULETTE_NUMS = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
 const RED_NUMS = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
 
@@ -1314,7 +1311,6 @@ function drawRouletteWheel(ctx, rotation) {
         ctx.strokeStyle = 'rgba(255,255,255,0.15)';
         ctx.lineWidth = 1;
         ctx.stroke();
-        // number
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(rotation + i * slice);
@@ -1325,7 +1321,6 @@ function drawRouletteWheel(ctx, rotation) {
         ctx.fillText(num, r * 0.72, 0);
         ctx.restore();
     }
-    // inner circle
     ctx.beginPath();
     ctx.arc(cx, cy, ir, 0, Math.PI * 2);
     ctx.fillStyle = '#0d0d1a';
@@ -1333,7 +1328,6 @@ function drawRouletteWheel(ctx, rotation) {
     ctx.strokeStyle = 'rgba(255,255,255,0.1)';
     ctx.lineWidth = 2;
     ctx.stroke();
-    // outer ring
     ctx.beginPath();
     ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
     ctx.strokeStyle = 'rgba(167,139,250,0.4)';
@@ -1361,14 +1355,11 @@ function playRoulette(choice) {
     let info = document.getElementById('roulette-info');
     numDisplay.textContent = ''; colorDisplay.textContent = ''; info.innerHTML = '';
 
-    // Pick winning number
     let num = Math.floor(Math.random() * 37);
-    // Find angle for this number
     let targetIdx = ROULETTE_NUMS.indexOf(num);
     let slice = (Math.PI * 2) / ROULETTE_NUMS.length;
     let targetAngle = targetIdx * slice;
-    // Pointer is at top (PI*1.5). We need number at top.
-    let totalSpin = Math.PI * 2 * (8 + Math.floor(Math.random() * 5)); // 8-13 full rotations
+    let totalSpin = Math.PI * 2 * (8 + Math.floor(Math.random() * 5));
     let endRotation = -(targetAngle) + Math.PI * 2 - slice/2 + totalSpin + (Math.random() * slice * 0.6 - slice * 0.3);
 
     let startRotation = rouletteRotation;
@@ -1509,7 +1500,6 @@ function playDouble() {
     saveUserData(myUid, d);
     animateBalance(d.balance);
 
-    // pick segment — weighted
     let chosen = selectedDouble;
     let weights = { x2: 0.45, x3: 0.30, x5: 0.18 };
     let totalWeight = Object.values(weights).reduce((a,b)=>a+b, 0);
@@ -1521,7 +1511,6 @@ function playDouble() {
         acc += w;
         if (rand <= acc) { resultMult = parseInt(key.slice(1)); resultLabel = key; break; }
     }
-    // bias: 7% chance for chosen to be result
     let isWin = resultLabel === chosen;
 
     let eligibleIdxs = DOUBLE_SEGMENTS.map((s,i) => s.label===resultLabel ? i : -1).filter(i=>i>=0);
@@ -1575,7 +1564,6 @@ const DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
 function playDice(choice) {
     let bet = validateBet('dice-bet');
     if (!bet) return;
-    let houseEdge = 0.04;
     let roll = Math.floor(Math.random() * 6) + 1;
     let diceEl = document.getElementById('dice-value');
     let result = document.getElementById('dice-result');
@@ -1622,7 +1610,7 @@ function playDice(choice) {
 function playCoin(choice) {
     let bet = validateBet('coin-bet');
     if (!bet) return;
-    let result = Math.random() < 0.48 ? 'heads' : 'tails'; // slight house edge
+    let result = Math.random() < 0.48 ? 'heads' : 'tails';
     let coinEl = document.getElementById('coin-icon');
     let resultDiv = document.getElementById('coin-result');
     let info = document.getElementById('coin-info');
@@ -1716,8 +1704,6 @@ let scratchBet=0, scratchDone=false;
 function startScratch() {
     let bet=validateBet('scratch-bet'); if(!bet) return;
     scratchBet=bet; scratchDone=false;
-    let houseEdge=0.04;
-    // prize pool with house edge baked in
     let prizes=[0, 0, 0, 0, Math.floor(bet*1.9), Math.floor(bet*2.8), Math.floor(bet*4.8)];
     let prize=prizes[Math.floor(Math.random()*prizes.length)];
     let area=document.getElementById('scratch-area');
@@ -1734,7 +1720,6 @@ function startScratch() {
     let ctx=canvas.getContext('2d');
     ctx.fillStyle='#6b7280';
     ctx.fillRect(0,0,canvas.width,canvas.height);
-    // texture
     for(let i=0;i<200;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*0.05})`;ctx.fillRect(Math.random()*canvas.width,Math.random()*canvas.height,2,2);}
     ctx.font='bold 16px Inter,sans-serif'; ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.textAlign='center';
     ctx.fillText('✨ Сотрите здесь ✨', canvas.width/2, canvas.height/2);
@@ -1805,9 +1790,6 @@ function checkPassProgress() {
         else if (task.type === 'wins') prog = d.wins;
         else if (task.type === 'top10') prog = (myRank >= 0 && myRank < 10) ? 1 : 0;
         p.progress[task.id] = prog;
-        if (prog >= task.target) {
-            // auto-mark as completable (user still clicks claim)
-        }
     });
     savePassData(p);
 }
@@ -1859,7 +1841,6 @@ function renderPass() {
         let prog = p.progress[task.id] || 0;
         let isComplete = prog >= task.target;
         let isClaimed = p.claimed.includes(task.id);
-        let pct = Math.min(prog / task.target, 1);
         return `<div class="pass-task ${isClaimed?'completed':''}">
             <div class="pass-task-icon">${task.icon}</div>
             <div class="pass-task-info">
@@ -1951,7 +1932,6 @@ function renderClans() {
     container.innerHTML = keys.map(cid => {
         let c = clans[cid];
         let isIn = d.clanId === cid;
-        let col = isIn ? '#059669' : '#6d28d9';
         return `<div class="clan-card">
             <div class="clan-card-header">
                 <div class="clan-icon-big" style="background:rgba(109,40,217,0.15)">${c.emoji}</div>
@@ -2017,11 +1997,21 @@ function init() {
             let d = getUserData(myUid);
             if (!d.nickname) { d.nickname = 'Игрок'; saveUserData(myUid, d); }
         }
-        if (isAdmin) { let n=document.getElementById('nav-admin'); if(n) n.classList.remove('hidden'); }
+
+        // Показываем кнопку профиля (всегда видима)
+        let navProfile = document.getElementById('nav-profile');
+        if (navProfile) navProfile.classList.remove('hidden');
+
+        // Показываем кнопку Админ только для ADMIN_ID
+        if (isAdmin) {
+            let navAdmin = document.getElementById('nav-admin');
+            if (navAdmin) navAdmin.classList.remove('hidden');
+        }
+
         updateBalanceDisplay();
         updateProfileUI();
         checkPassProgress();
-        // Draw roulette initially
+
         setTimeout(() => {
             let canvas = document.getElementById('roulette-canvas');
             if (canvas) {
