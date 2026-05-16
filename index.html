@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>JS Casino</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; overflow-x: hidden; padding-bottom: 90px; }
+::-webkit-scrollbar { width: 0; height: 0; }
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; z-index: 0; }
+.orb-1 { width: 300px; height: 300px; background: #7c3aed; top: -100px; right: -80px; }
+.orb-2 { width: 250px; height: 250px; background: #db2777; bottom: 100px; left: -100px; opacity: 0.25; }
+.orb-3 { width: 200px; height: 200px; background: #2563eb; top: 40%; right: -60px; opacity: 0.2; }
+.app { position: relative; z-index: 1; max-width: 430px; margin: 0 auto; padding: 0 16px; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 12px; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.logo span { font-size: 11px; font-weight: 600; -webkit-text-fill-color: #a78bfa; letter-spacing: 2px; text-transform: uppercase; }
+.header-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #db2777); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; box-shadow: 0 0 20px rgba(124,58,237,0.3); }
+.balance-wrap { margin-bottom: 20px; }
+.balance-card { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(219,39,119,0.1)); border: 1px solid rgba(124,58,237,0.2); border-radius: 24px; padding: 24px 20px; position: relative; overflow: hidden; }
+.balance-card::before { content: ''; position: absolute; top: -50%; right: -30%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(167,139,250,0.15), transparent 70%); border-radius: 50%; }
+.balance-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+.balance-amount { font-size: 42px; font-weight: 800; letter-spacing: -1px; display: flex; align-items: baseline; gap: 8px; }
+.balance-amount .num { background: linear-gradient(135deg, #fff, #e9d5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.balance-amount .currency { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.4); -webkit-text-fill-color: rgba(255,255,255,0.4); }
+.balance-change { margin-top: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.2); border-radius: 20px; font-size: 13px; font-weight: 600; color: #4ade80; }
+.balance-change.down { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.2); color: #f87171; }
+.quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+.qa-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; color: #fff; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.qa-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.06); }
+.qa-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.qa-icon.purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 4px 15px rgba(124,58,237,0.25); }
+.qa-icon.pink { background: linear-gradient(135deg, #db2777, #f472b6); box-shadow: 0 4px 15px rgba(219,39,119,0.25); }
+.qa-icon.blue { background: linear-gradient(135deg, #2563eb, #60a5fa); box-shadow: 0 4px 15px rgba(37,99,235,0.25); }
+.qa-icon.green { background: linear-gradient(135deg, #059669, #34d399); box-shadow: 0 4px 15px rgba(5,150,105,0.25); }
+.section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.section-title h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+.section-title .see-all { font-size: 12px; color: #a78bfa; font-weight: 600; cursor: pointer; }
+.featured { position: relative; border-radius: 24px; padding: 24px 20px; margin-bottom: 20px; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(219,39,119,0.2)); }
+.featured::after { content: ''; position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%); border-radius: 50%; z-index: 0; }
+.featured-content { position: relative; z-index: 1; }
+.featured-badge { display: inline-block; padding: 4px 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.featured h3 { font-size: 24px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+.featured p { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+.featured-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: #fff; color: #0a0a0f; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+.game-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 18px 14px; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
+.game-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #7c3aed, #db2777); opacity: 0; transition: opacity 0.3s; }
+.game-card:hover::before, .game-card:active::before { opacity: 1; }
+.game-card:active { transform: scale(0.97); background: rgba(255,255,255,0.05); }
+.game-card-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px; }
+.game-card-icon.purple { background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(124,58,237,0.05)); }
+.game-card-icon.pink { background: linear-gradient(135deg, rgba(219,39,119,0.2), rgba(219,39,119,0.05)); }
+.game-card-icon.blue { background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(37,99,235,0.05)); }
+.game-card-icon.green { background: linear-gradient(135deg, rgba(5,150,105,0.2), rgba(5,150,105,0.05)); }
+.game-card-icon.orange { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05)); }
+.game-card-icon.red { background: linear-gradient(135deg, rgba(220,38,38,0.2), rgba(220,38,38,0.05)); }
+.game-card-icon.cyan { background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.05)); }
+.game-card-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.game-card-desc { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+.game-card-multiplier { position: absolute; top: 14px; right: 14px; padding: 3px 8px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.2); border-radius: 8px; font-size: 10px; font-weight: 700; color: #4ade80; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,15,0.9); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.05); z-index: 100; }
+.bottom-nav-inner { max-width: 430px; margin: 0 auto; display: flex; justify-content: space-around; padding: 8px 0 20px; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 12px; color: rgba(255,255,255,0.35); font-size: 10px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; background: none; }
+.nav-item.active { color: #a78bfa; }
+.nav-item.active .nav-icon { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 0 12px rgba(124,58,237,0.3); }
+.nav-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: rgba(255,255,255,0.05); transition: all 0.2s; }
+.loading-screen { position: fixed; inset: 0; background: #0a0a0f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; }
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-logo { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; animation: loadPulse 1.5s ease-in-out infinite; }
+@keyframes loadPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+.loading-bar { width: 120px; height: 3px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.loading-bar-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #db2777); border-radius: 3px; animation: loadBar 1.2s ease-out forwards; }
+@keyframes loadBar { 0%{width:0} 100%{width:100%} }
+.profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 20px; margin-bottom: 14px; }
+.profile-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.profile-avatar-big { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #db2777); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; box-shadow: 0 0 20px rgba(124,58,237,0.3); }
+.profile-name-block { flex: 1; }
+.profile-name { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.profile-id-text { font-size: 12px; color: rgba(255,255,255,0.4); font-family: monospace; }
+.profile-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+.profile-row:last-child { border-bottom: none; }
+.profile-row span:first-child { color: rgba(255,255,255,0.5); }
+.profile-row span:last-child { font-weight: 600; }
+.green { color: #4ade80; }
+.red { color: #f87171; }
+.top-item { display: flex; align-items: center; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 10px; }
+.top-rank { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin-right: 14px; flex-shrink: 0; }
+.top-rank.gold { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+.top-rank.silver { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #000; }
+.top-rank.bronze { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; }
+.top-rank.other { background: rgba(255,255,255,0.08); color: #fff; font-size: 13px; }
+.top-info { flex: 1; min-width: 0; }
+.top-name { font-weight: 700; font-size: 15px; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top-stats { font-size: 12px; color: rgba(255,255,255,0.4); }
+.top-balance { font-weight: 800; font-size: 15px; color: #4ade80; flex-shrink: 0; margin-left: 10px; }
+.my-position { text-align: center; padding: 16px; background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(219,39,119,0.15)); border: 1px solid rgba(124,58,237,0.2); border-radius: 16px; margin-top: 16px; font-weight: 700; font-size: 14px; }
+.empty-state { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.3); }
+.empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+.bonus-card { text-align: center; padding: 40px 24px; background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(219,39,119,0.1)); border: 1px solid rgba(124,58,237,0.2); border-radius: 24px; margin: 20px 0; position: relative; overflow: hidden; }
+.bonus-icon { font-size: 64px; margin-bottom: 16px; position: relative; z-index: 1; }
+.bonus-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; position: relative; z-index: 1; }
+.bonus-desc { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 20px; position: relative; z-index: 1; }
+.bonus-amount { font-size: 36px; font-weight: 800; color: #4ade80; margin-bottom: 20px; position: relative; z-index: 1; }
+.bonus-timer { font-size: 16px; font-weight: 700; color: #fbbf24; margin-bottom: 16px; position: relative; z-index: 1; }
+.bonus-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7c3aed, #db2777); border: none; border-radius: 16px; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; position: relative; z-index: 1; transition: all 0.2s; }
+.bonus-btn:active { opacity: 0.9; transform: scale(0.98); }
+.bonus-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.admin-card { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); border-radius: 20px; padding: 20px; margin-bottom: 14px; }
+.admin-title { color: #f87171; font-size: 14px; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.admin-input { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; font-size: 15px; margin-bottom: 10px; }
+.admin-input:focus { outline: none; border-color: #ef4444; }
+.admin-btn { width: 100%; padding: 14px; background: linear-gradient(90deg, #ef4444, #dc2626); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: all 0.2s; }
+.admin-btn:active { opacity: 0.8; transform: scale(0.98); }
+.admin-stat { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+.admin-stat:last-child { border-bottom: none; }
+.admin-stat span:first-child { color: rgba(255,255,255,0.5); }
+.admin-stat span:last-child { font-weight: 700; }
+.game-screen { display: none; }
+.game-screen.active { display: block; }
+.game-header-bar { display: flex; align-items: center; padding: 16px 0; margin-bottom: 10px; }
+.back-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 16px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.back-btn:active { background: rgba(255,255,255,0.1); }
+.game-title-bar { font-size: 20px; font-weight: 800; margin-left: 14px; }
+.bet-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 20px; margin-bottom: 16px; }
+.bet-label { font-size: 12px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.bet-input-wrap { position: relative; margin-bottom: 12px; }
+.bet-input-v2 { width: 100%; padding: 16px 50px 16px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; color: #fff; font-size: 20px; font-weight: 700; text-align: center; }
+.bet-input-v2:focus { outline: none; border-color: #7c3aed; }
+.bet-max-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 6px 12px; background: linear-gradient(135deg, #7c3aed, #db2777); border: none; border-radius: 8px; color: #fff; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.bet-max-btn:active { opacity: 0.8; transform: translateY(-50%) scale(0.95); }
+.game-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7c3aed, #db2777); border: none; border-radius: 14px; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.game-btn:active { opacity: 0.9; transform: scale(0.98); }
+.game-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.game-btn.secondary { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+.game-btn.green { background: linear-gradient(90deg, #059669, #10b981); }
+.game-btn.orange { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.select-v2 { width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; color: #fff; font-size: 15px; margin-bottom: 12px; }
+.select-v2 option { background: #1a1a2e; color: #fff; }
+.game-info-box { text-align: center; padding: 16px; font-size: 14px; color: rgba(255,255,255,0.6); }
+.game-info-box b { color: #a78bfa; }
+.result-win { color: #4ade80; font-size: 20px; font-weight: 800; margin-bottom: 6px; animation: popIn 0.4s; }
+.result-lose { color: #f87171; font-size: 20px; font-weight: 800; margin-bottom: 6px; animation: popIn 0.4s; }
+.result-amount { font-size: 28px; font-weight: 800; }
+@keyframes popIn { 0%{transform:scale(0)} 80%{transform:scale(1.1)} 100%{transform:scale(1)} }
+.mines-board-v2 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 10px 0; }
+.mine-cell-v2 { aspect-ratio: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: #fff; font-size: 22px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+.mine-cell-v2:active { transform: scale(0.92); }
+.mine-cell-v2.revealed { background: linear-gradient(135deg, #059669, #10b981); border-color: rgba(5,150,105,0.3); transform: scale(1.05); box-shadow: 0 0 15px rgba(5,150,105,0.2); }
+.mine-cell-v2.bomb { background: linear-gradient(135deg, #dc2626, #ef4444); border-color: rgba(220,38,38,0.3); animation: shakeCell 0.5s; }
+@keyframes shakeCell { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 40%{transform:translateX(10px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+.crash-display-v2 { height: 200px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; margin: 10px 0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.crash-multiplier-v2 { font-size: 56px; font-weight: 800; transition: all 0.1s; }
+.crash-multiplier-v2.win { color: #4ade80; text-shadow: 0 0 20px rgba(74,222,128,0.3); }
+.crash-multiplier-v2.lose { color: #f87171; text-shadow: 0 0 20px rgba(248,113,113,0.3); }
+.roulette-wheel-v2 { width: 220px; height: 220px; margin: 20px auto; border-radius: 50%; border: 8px solid rgba(255,255,255,0.1); position: relative; display: flex; align-items: center; justify-content: center; }
+.roulette-wheel-v2.spinning { animation: wheelSpin 3s cubic-bezier(0.2,0.8,0.3,1); }
+@keyframes wheelSpin { 0%{transform:rotate(0)} 100%{transform:rotate(1800deg)} }
+.roulette-ball-v2 { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; background: #333; box-shadow: 0 5px 20px rgba(0,0,0,0.5); transition: all 0.5s; }
+.roulette-ball-v2.red { background: linear-gradient(135deg, #dc2626, #ef4444); box-shadow: 0 0 20px rgba(220,38,38,0.3); }
+.roulette-ball-v2.black { background: linear-gradient(135deg, #1f2937, #374151); }
+.roulette-ball-v2.green-ball { background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 0 20px rgba(5,150,105,0.3); }
+.roulette-track { position: absolute; width: 100%; height: 100%; border-radius: 50%; }
+.roulette-track::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); }
+.roulette-result-info { text-align: center; margin-top: 10px; font-size: 18px; font-weight: 700; }
+.roulette-result-info.red { color: #ef4444; }
+.roulette-result-info.black { color: #6b7280; }
+.roulette-result-info.green { color: #10b981; }
+.dice-v2 { width: 80px; height: 80px; margin: 20px auto; background: linear-gradient(135deg, #fff, #e5e7eb); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #1a1a2e; box-shadow: 0 8px 30px rgba(255,255,255,0.1); transition: transform 0.3s; }
+.dice-v2.rolling { animation: diceRollV2 0.6s ease-in-out; }
+@keyframes diceRollV2 { 0%{transform:rotate(0) scale(1)} 50%{transform:rotate(360deg) scale(1.15)} 100%{transform:rotate(720deg) scale(1)} }
+.coin-v2 { width: 110px; height: 110px; margin: 20px auto; border-radius: 50%; background: linear-gradient(135deg, #ffd700, #fbbf24); display: flex; align-items: center; justify-content: center; font-size: 52px; box-shadow: 0 10px 40px rgba(255,215,0,0.3); transition: transform 0.5s; }
+.coin-v2.flipping { animation: coinFlipV2 0.6s ease-in-out; }
+@keyframes coinFlipV2 { 0%{transform:rotateY(0)} 50%{transform:rotateY(900deg)} 100%{transform:rotateY(1800deg)} }
+.bj-table-v2 { background: linear-gradient(135deg, rgba(34,139,34,0.2), rgba(20,83,45,0.15)); border: 1px solid rgba(34,197,94,0.1); border-radius: 20px; padding: 20px; margin: 10px 0; }
+.bj-hand-v2 { display: flex; justify-content: center; gap: 8px; margin: 12px 0; flex-wrap: wrap; min-height: 90px; }
+.bj-card-v2 { width: 56px; height: 78px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #1a1a2e; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: cardDeal 0.5s ease-out forwards; opacity: 0; }
+.bj-card-v2.red-card { color: #dc2626; }
+.bj-card-v2.back { background: linear-gradient(135deg, #1e3a8a, #1e40af); color: transparent; }
+@keyframes cardDeal { 0%{transform:translateY(-80px) rotate(-15deg);opacity:0} 100%{transform:translateY(0) rotate(0);opacity:1} }
+.bj-score-v2 { text-align: center; font-size: 18px; font-weight: 700; margin: 6px 0; color: #fff; }
+.bj-label-v2 { text-align: center; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+.bj-controls-v2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.scratch-card-v2 { width: 280px; height: 160px; margin: 20px auto; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(245,158,11,0.2); }
+.scratch-canvas-v2 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px; cursor: crosshair; touch-action: none; }
+.scratch-prize-v2 { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 28px; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); text-align: center; pointer-events: none; }
+.confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+.confetti { position: absolute; width: 8px; height: 8px; animation: confettiFall 2s ease-out forwards; }
+@keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+.toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(30,30,40,0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px 22px; font-size: 14px; font-weight: 600; color: #fff; z-index: 9998; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.btn-grid-v2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.btn-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.btn-option-v2 { padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; }
+.btn-option-v2:active { background: rgba(255,255,255,0.08); transform: scale(0.97); }
+.clan-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 20px; margin-bottom: 14px; }
+.clan-card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.clan-card-desc { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.clan-card-members { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+.clan-btn { padding: 10px 16px; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.clan-btn.join { background: linear-gradient(90deg, #059669, #10b981); color: #fff; }
+.clan-btn.leave { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+.clan-btn.create { width: 100%; padding: 16px; background: linear-gradient(90deg, #7c3aed, #db2777); color: #fff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.clan-btn:active { opacity: 0.9; transform: scale(0.98); }
+.clan-input { width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; font-size: 15px; margin-bottom: 12px; }
+.clan-input:focus { outline: none; border-color: #7c3aed; }
+.clan-tag { display: inline-block; padding: 3px 10px; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px; font-size: 11px; font-weight: 700; color: #a78bfa; margin-left: 8px; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+<div class="toast" id="toast"></div>
+<div class="loading-screen" id="loading">
+    <div class="loading-logo">JS Casino</div>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+</div>
+<div class="app screen-content" id="screen-home">
+    <div class="header">
+        <div class="logo">JS<br><span>Casino</span></div>
+        <div class="header-avatar" id="user-avatar">ð¤</div>
+    </div>
+    <div class="balance-wrap">
+        <div class="balance-card">
+            <div class="balance-label">ÐÐ°Ñ Ð±Ð°Ð»Ð°Ð½Ñ</div>
+            <div class="balance-amount"><span class="num" id="user-balance">0</span><span class="currency">JScoin</span></div>
+            <div class="balance-change" id="balance-change"><span>ð</span> <span id="balance-change-text">+0 Ð·Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ</span></div>
+        </div>
+    </div>
+    <div class="quick-actions">
+        <div class="qa-btn" onclick="showToast('ÐÑÑÐ¾ÑÐ¸Ñ ÑÐºÐ¾ÑÐ¾')"><div class="qa-icon blue">ð</div><span>ÐÑÑÐ¾ÑÐ¸Ñ</span></div>
+        <div class="qa-btn" onclick="switchNav(document.getElementById('nav-bonus'), 'bonus')"><div class="qa-icon green">ð</div><span>ÐÐ¾Ð½ÑÑ</span></div>
+    </div>
+    <div class="section-title"><h2>ð¥ ÐÐ¾Ð¿ÑÐ»ÑÑÐ½Ð¾Ðµ</h2></div>
+    <div class="featured" onclick="openGameScreen('mines')">
+        <div class="featured-content">
+            <div class="featured-badge">ð¥ Ð¢Ð¾Ð¿ #1</div>
+            <h3>ÐÐ¸Ð½Ñ</h3>
+            <p>ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±. Ð§ÐµÐ¼ Ð±Ð¾Ð»ÑÑÐµ Ð¾ÑÐºÑÐ¾ÐµÑÑ â ÑÐµÐ¼ Ð²ÑÑÐµ Ð¼Ð½Ð¾Ð¶Ð¸ÑÐµÐ»Ñ!</p>
+            <button class="featured-btn">ÐÐ³ÑÐ°ÑÑ ÑÐµÐ¹ÑÐ°Ñ â</button>
+        </div>
+    </div>
+    <div class="section-title"><h2>ð® ÐÑÐµ Ð¸Ð³ÑÑ</h2></div>
+    <div class="games-grid">
+        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">Ð´Ð¾ x50</div><div class="game-card-icon purple">ð£</div><div class="game-card-title">ÐÐ¸Ð½Ñ</div><div class="game-card-desc">ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±</div></div>
+        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">Ð´Ð¾ x100</div><div class="game-card-icon pink">ð</div><div class="game-card-title">ÐÑÐ°Ñ</div><div class="game-card-desc">Ð£ÑÐ¿ÐµÐ¹ Ð·Ð°Ð±ÑÐ°ÑÑ Ð´Ð¾ ÐºÑÐ°ÑÐ°</div></div>
+        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">ð</div><div class="game-card-title">ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div><div class="game-card-desc">Ð¡Ð¾Ð±ÐµÑÐ¸ 21 Ð¾ÑÐºÐ¾</div></div>
+        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">ð«</div><div class="game-card-title">Ð¡ÐºÑÐµÑÑ</div><div class="game-card-desc">Ð¡Ð¾ÑÑÐ¸ Ð¸ Ð²ÑÐ¸Ð³ÑÐ°Ð¹</div></div>
+        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">ð¡</div><div class="game-card-title">Ð ÑÐ»ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÑÑÑÐ¸ ÐºÐ¾Ð»ÐµÑÐ¾ ÑÐ´Ð°ÑÐ¸</div></div>
+        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">ð²</div><div class="game-card-title">ÐÐ¾ÑÑÐ¸</div><div class="game-card-desc">Ð£Ð³Ð°Ð´Ð°Ð¹ ÑÐ¸ÑÐ»Ð¾ 1-6</div></div>
+        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">ðª</div><div class="game-card-title">ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÐ»Ð°ÑÑÐ¸ÐºÐ° 50/50</div></div>
+    </div>
+</div>
+
+<div class="app screen-content hidden" id="screen-games">
+    <div class="header"><div class="logo">JS<br><span>Casino</span></div></div>
+    <div class="section-title"><h2>ð® ÐÑÐµ Ð¸Ð³ÑÑ</h2></div>
+    <div class="games-grid">
+        <div class="game-card" onclick="openGameScreen('mines')"><div class="game-card-multiplier">Ð´Ð¾ x50</div><div class="game-card-icon purple">ð£</div><div class="game-card-title">ÐÐ¸Ð½Ñ</div><div class="game-card-desc">ÐÐ°Ð¹Ð´Ð¸ Ð°Ð»Ð¼Ð°Ð·Ñ, Ð¸Ð·Ð±ÐµÐ³Ð°Ð¹ Ð±Ð¾Ð¼Ð±</div></div>
+        <div class="game-card" onclick="openGameScreen('crash')"><div class="game-card-multiplier">Ð´Ð¾ x100</div><div class="game-card-icon pink">ð</div><div class="game-card-title">ÐÑÐ°Ñ</div><div class="game-card-desc">Ð£ÑÐ¿ÐµÐ¹ Ð·Ð°Ð±ÑÐ°ÑÑ Ð´Ð¾ ÐºÑÐ°ÑÐ°</div></div>
+        <div class="game-card" onclick="openGameScreen('blackjack')"><div class="game-card-multiplier">x2.5</div><div class="game-card-icon green">ð</div><div class="game-card-title">ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div><div class="game-card-desc">Ð¡Ð¾Ð±ÐµÑÐ¸ 21 Ð¾ÑÐºÐ¾</div></div>
+        <div class="game-card" onclick="openGameScreen('scratch')"><div class="game-card-multiplier">x5</div><div class="game-card-icon orange">ð«</div><div class="game-card-title">Ð¡ÐºÑÐµÑÑ</div><div class="game-card-desc">Ð¡Ð¾ÑÑÐ¸ Ð¸ Ð²ÑÐ¸Ð³ÑÐ°Ð¹</div></div>
+        <div class="game-card" onclick="openGameScreen('roulette')"><div class="game-card-multiplier">x14</div><div class="game-card-icon red">ð¡</div><div class="game-card-title">Ð ÑÐ»ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÑÑÑÐ¸ ÐºÐ¾Ð»ÐµÑÐ¾ ÑÐ´Ð°ÑÐ¸</div></div>
+        <div class="game-card" onclick="openGameScreen('dice')"><div class="game-card-multiplier">x5</div><div class="game-card-icon blue">ð²</div><div class="game-card-title">ÐÐ¾ÑÑÐ¸</div><div class="game-card-desc">Ð£Ð³Ð°Ð´Ð°Ð¹ ÑÐ¸ÑÐ»Ð¾ 1-6</div></div>
+        <div class="game-card" onclick="openGameScreen('coin')"><div class="game-card-multiplier">x2</div><div class="game-card-icon cyan">ðª</div><div class="game-card-title">ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div><div class="game-card-desc">ÐÐ»Ð°ÑÑÐ¸ÐºÐ° 50/50</div></div>
+    </div>
+</div>
+
+<div class="app screen-content hidden" id="screen-top">
+    <div class="header"><div class="logo">JS<br><span>Ð¢Ð¾Ð¿</span></div></div>
+    <div class="section-title"><h2>ð Ð¢Ð¾Ð¿ Ð¸Ð³ÑÐ¾ÐºÐ¾Ð²</h2></div>
+    <div id="top-list"></div>
+    <div id="top-mypos" class="my-position hidden"></div>
+    <div class="empty-state hidden" id="top-empty"><div class="empty-state-icon">ð</div><div>ÐÐ¾ÐºÐ° Ð½ÐµÑ Ð¸Ð³ÑÐ¾ÐºÐ¾Ð² Ð² ÑÐ¾Ð¿Ðµ</div></div>
+</div>
+
+<div class="app screen-content hidden" id="screen-profile">
+    <div class="header"><div class="logo">JS<br><span>ÐÑÐ¾ÑÐ¸Ð»Ñ</span></div></div>
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar-big" id="profile-avatar">ð¤</div>
+            <div class="profile-name-block">
+                <div class="profile-name" id="profile-nick">ÐÐ³ÑÐ¾Ðº</div>
+                <div class="profile-id-text" id="profile-id">ID: -</div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-card">
+        <div class="profile-row"><span>ð° ÐÐ°Ð»Ð°Ð½Ñ</span><span id="profile-balance">0 JScoin</span></div>
+        <div class="profile-row"><span>ð® ÐÑÐµÐ³Ð¾ Ð¸Ð³Ñ</span><span id="profile-games">0</span></div>
+        <div class="profile-row"><span>ð ÐÐ¾Ð±ÐµÐ´</span><span id="profile-wins">0</span></div>
+        <div class="profile-row"><span>ð ÐÐ¾ÑÐ°Ð¶ÐµÐ½Ð¸Ð¹</span><span id="profile-losses">0</span></div>
+        <div class="profile-row"><span>ð ÐÐ¸Ð½ÑÐµÐ¹Ñ</span><span id="profile-winrate">0%</span></div>
+    </div>
+    <div class="profile-card">
+        <div class="profile-row"><span>ð ÐÑÐ¸Ð³ÑÐ°Ð½Ð¾</span><span class="green" id="profile-won">+0</span></div>
+        <div class="profile-row"><span>ð ÐÑÐ¾Ð¸Ð³ÑÐ°Ð½Ð¾</span><span class="red" id="profile-lost">-0</span></div>
+    </div>
+    <div class="profile-card" id="clan-profile-section">
+        <div class="profile-row"><span>âï¸ ÐÐ»Ð°Ð½</span><span id="profile-clan">ÐÐµÑ ÐºÐ»Ð°Ð½Ð°</span></div>
+    </div>
+    <div class="profile-card">
+        <button class="clan-btn create" onclick="switchNav(null, 'clans')">âï¸ Ð£Ð¿ÑÐ°Ð²Ð»ÐµÐ½Ð¸Ðµ ÐºÐ»Ð°Ð½Ð°Ð¼Ð¸</button>
+    </div>
+</div>
+
+<div class="app screen-content hidden" id="screen-clans">
+    <div class="header"><div class="logo">JS<br><span>ÐÐ»Ð°Ð½Ñ</span></div></div>
+    <div class="section-title"><h2>âï¸ ÐÑÐµ ÐºÐ»Ð°Ð½Ñ</h2></div>
+    <div id="clan-list"></div>
+    <div class="profile-card" style="margin-top:20px;">
+        <div class="clan-card-title">ð° Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÐºÐ»Ð°Ð½</div>
+        <div class="clan-card-desc">Ð¡ÑÐ¾Ð¸Ð¼Ð¾ÑÑÑ: 3,000,000 JScoin</div>
+        <input type="text" class="clan-input" id="clan-name-input" placeholder="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÐºÐ»Ð°Ð½Ð°" maxlength="20">
+        <button class="clan-btn create" onclick="createClan()">ð° Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÐºÐ»Ð°Ð½ (3M)</button>
+    </div>
+    <div class="empty-state hidden" id="clans-empty"><div class="empty-state-icon">âï¸</div><div>ÐÐ¾ÐºÐ° Ð½ÐµÑ ÐºÐ»Ð°Ð½Ð¾Ð²</div></div>
+</div>
+
+<div class="app screen-content hidden" id="screen-bonus">
+    <div class="header"><div class="logo">JS<br><span>ÐÐ¾Ð½ÑÑ</span></div></div>
+    <div class="bonus-card">
+        <div class="bonus-icon">ð</div>
+        <div class="bonus-title">ÐÐ¶ÐµÐ´Ð½ÐµÐ²Ð½ÑÐ¹ Ð±Ð¾Ð½ÑÑ</div>
+        <div class="bonus-desc">ÐÐ¾Ð»ÑÑÐ°Ð¹ÑÐµ +10,000 JScoin ÐºÐ°Ð¶Ð´ÑÐµ 24 ÑÐ°ÑÐ°</div>
+        <div class="bonus-amount hidden" id="bonus-amount">+10,000 JScoin</div>
+        <div class="bonus-timer hidden" id="bonus-timer"></div>
+        <button class="bonus-btn" onclick="claimBonus()" id="bonus-btn">ð° ÐÐ¾Ð»ÑÑÐ¸ÑÑ Ð±Ð¾Ð½ÑÑ</button>
+    </div>
+</div>
+
+<div class="app screen-content hidden" id="screen-admin">
+    <div class="header">
+        <div class="logo">JS<br><span>Admin</span></div>
+        <div class="header-avatar" style="background: linear-gradient(135deg, #ef4444, #dc2626);">ð§</div>
+    </div>
+    <div class="section-title"><h2>ð§ ÐÐ´Ð¼Ð¸Ð½-Ð¿Ð°Ð½ÐµÐ»Ñ</h2></div>
+    <div class="admin-card">
+        <div class="admin-title">ð° ÐÑÐ´Ð°ÑÐ° Ð±Ð°Ð»Ð°Ð½ÑÐ°</div>
+        <input type="number" class="admin-input" id="admin-target-id" placeholder="ID Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ">
+        <input type="number" class="admin-input" id="admin-amount" placeholder="Ð¡ÑÐ¼Ð¼Ð° JScoin">
+        <button class="admin-btn" onclick="adminGive()">ÐÑÐ´Ð°ÑÑ Ð±Ð°Ð»Ð°Ð½Ñ</button>
+    </div>
+    <div class="admin-card">
+        <div class="admin-title">ð Ð¡ÑÐ°ÑÐ¸ÑÑÐ¸ÐºÐ°</div>
+        <div class="admin-stat"><span>ÐÐ¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»ÐµÐ¹</span><span id="admin-users">0</span></div>
+        <div class="admin-stat"><span>ÐÑÐµÐ³Ð¾ Ð²ÑÐ¸Ð³ÑÐ°Ð½Ð¾</span><span id="admin-won">0</span></div>
+        <div class="admin-stat"><span>ÐÑÐµÐ³Ð¾ Ð¿ÑÐ¾Ð¸Ð³ÑÐ°Ð½Ð¾</span><span id="admin-lost">0</span></div>
+        <div class="admin-stat"><span>ÐÐ±Ð¾ÑÐ¾Ñ</span><span id="admin-turnover">0</span></div>
+        <div class="admin-stat"><span>ÐÑÐ¸Ð±ÑÐ»Ñ Ð±Ð¾ÑÐ°</span><span id="admin-profit" style="color:#4ade80;">0</span></div>
+    </div>
+</div>
+<div class="app game-screen" id="game-mines">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð£ ÐÐ¸Ð½Ñ</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="mines-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="mines-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('mines-bet')">MAX</button>
+        </div>
+        <div class="bet-label">ÐÐ¾Ð»Ð¸ÑÐµÑÑÐ²Ð¾ Ð¼Ð¸Ð½</div>
+        <select class="select-v2" id="mines-count">
+            <option value="1">1 Ð¼Ð¸Ð½Ð°</option><option value="3">3 Ð¼Ð¸Ð½Ñ</option><option value="5" selected>5 Ð¼Ð¸Ð½</option>
+            <option value="10">10 Ð¼Ð¸Ð½</option><option value="15">15 Ð¼Ð¸Ð½</option><option value="20">20 Ð¼Ð¸Ð½</option>
+        </select>
+        <button class="game-btn" onclick="startMines()" id="mines-start-btn">â¶ ÐÐ°ÑÐ°ÑÑ Ð¸Ð³ÑÑ</button>
+    </div>
+    <div id="mines-board" class="mines-board-v2 hidden"></div>
+    <div id="mines-cashout-wrap" class="hidden" style="padding:0 0 10px;">
+        <button class="game-btn green" id="mines-cashout-btn" onclick="minesCashout()">ð° ÐÐ°Ð±ÑÐ°ÑÑ Ð²ÑÐ¸Ð³ÑÑÑ</button>
+    </div>
+    <div id="mines-info" class="game-info-box"></div>
+</div>
+
+<div class="app game-screen" id="game-crash">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð ÐÑÐ°Ñ</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="crash-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="crash-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('crash-bet')">MAX</button>
+        </div>
+        <div class="bet-label">Ð¦ÐµÐ»Ñ</div>
+        <select class="select-v2" id="crash-target">
+            <option value="1.5">x1.5 (66% ÑÐ°Ð½Ñ)</option><option value="2.0">x2.0 (50% ÑÐ°Ð½Ñ)</option>
+            <option value="3.0" selected>x3.0 (33% ÑÐ°Ð½Ñ)</option><option value="5.0">x5.0 (20% ÑÐ°Ð½Ñ)</option>
+            <option value="10.0">x10.0 (10% ÑÐ°Ð½Ñ)</option>
+        </select>
+        <button class="game-btn" onclick="playCrash()" id="crash-start-btn">â¶ ÐÐ³ÑÐ°ÑÑ</button>
+    </div>
+    <div id="crash-display" class="crash-display-v2 hidden"><div class="crash-multiplier-v2" id="crash-multiplier">x1.00</div></div>
+    <div id="crash-info" class="game-info-box"></div>
+</div>
+
+<div class="app game-screen" id="game-roulette">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð¡ Ð ÑÐ»ÐµÑÐºÐ°</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="roulette-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="roulette-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('roulette-bet')">MAX</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playRoulette('red')">ð´ ÐÑÐ°ÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('black')">â« Ð§ÑÑÐ½Ð¾Ðµ x2</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playRoulette('even')">ð¢ Ð§ÑÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playRoulette('odd')">ð¢ ÐÐµÑÑÑÐ½Ð¾Ðµ x2</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playRoulette('1-12')">1-12 x2.98</button>
+            <button class="btn-option-v2" onclick="playRoulette('13-24')">13-24 x2.98</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playRoulette('25-36')">25-36 x2.98</button>
+            <button class="btn-option-v2" onclick="playRoulette('green')">ð¢ ÐÐµÑÐ¾ x14</button>
+        </div>
+    </div>
+    <div id="roulette-result" class="hidden">
+        <div class="roulette-wheel-v2" id="roulette-wheel">
+            <div class="roulette-track" id="roulette-track"></div>
+            <div class="roulette-ball-v2" id="roulette-ball">?</div>
+        </div>
+        <div class="roulette-result-info hidden" id="roulette-result-info"></div>
+        <div id="roulette-info" class="game-info-box"></div>
+    </div>
+</div>
+
+<div class="app game-screen" id="game-dash">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð² ÐÐ¾ÑÑÐ¸</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="dice-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="dice-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('dice-bet')">MAX</button>
+        </div>
+        <div class="btn-grid-v2 btn-grid-3">
+            <button class="btn-option-v2" onclick="playDice('1')">1 (x5)</button>
+            <button class="btn-option-v2" onclick="playDice('2')">2 (x5)</button>
+            <button class="btn-option-v2" onclick="playDice('3')">3 (x5)</button>
+            <button class="btn-option-v2" onclick="playDice('4')">4 (x5)</button>
+            <button class="btn-option-v2" onclick="playDice('5')">5 (x5)</button>
+            <button class="btn-option-v2" onclick="playDice('6')">6 (x5)</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playDice('even')">Ð§ÑÑÐ½Ð¾Ðµ x2</button>
+            <button class="btn-option-v2" onclick="playDice('odd')">ÐÐµÑÑÑÐ½Ð¾Ðµ x2</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playDice('high')">ÐÐ¾Ð»ÑÑÐµ 3 x2</button>
+            <button class="btn-option-v2" onclick="playDice('low')">ÐÐµÐ½ÑÑÐµ 4 x2</button>
+        </div>
+    </div>
+    <div id="dice-result" class="hidden">
+        <div class="dice-v2" id="dice-value">?</div>
+        <div id="dice-info" class="game-info-box"></div>
+    </div>
+</div>
+
+<div class="app game-screen" id="game-coin">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ðª ÐÑÑÐ» Ð¸ Ð ÐµÑÐºÐ°</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="coin-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="coin-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('coin-bet')">MAX</button>
+        </div>
+        <div class="btn-grid-v2">
+            <button class="btn-option-v2" onclick="playCoin('heads')" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(29,78,216,0.1));border-color:rgba(59,130,246,0.2);">ð¦ ÐÑÑÐ»</button>
+            <button class="btn-option-v2" onclick="playCoin('tails')" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(217,119,6,0.1));border-color:rgba(245,158,11,0.2);">ðª Ð ÐµÑÐºÐ°</button>
+        </div>
+    </div>
+    <div id="coin-result" class="hidden" style="text-align:center;padding:20px 0;">
+        <div class="coin-v2" id="coin-icon">ð¦</div>
+        <div id="coin-info" class="game-info-box"></div>
+    </div>
+</div>
+
+<div class="app game-screen" id="game-blackjack">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð ÐÐ»ÑÐºÐ´Ð¶ÐµÐº</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="bj-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="bj-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('bj-bet')">MAX</button>
+        </div>
+        <button class="game-btn" onclick="startBJ()" id="bj-start-btn">â¶ ÐÐ°ÑÐ°ÑÑ Ð¸Ð³ÑÑ</button>
+    </div>
+    <div id="bj-table" class="bj-table-v2 hidden">
+        <div class="bj-label-v2">ÐÐ¸Ð»ÐµÑ</div>
+        <div class="bj-hand-v2" id="bj-dealer-hand"></div>
+        <div class="bj-score-v2" id="bj-dealer-score">0</div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1);margin:12px 0;"></div>
+        <div class="bj-label-v2">ÐÑ</div>
+        <div class="bj-hand-v2" id="bj-player-hand"></div>
+        <div class="bj-score-v2" id="bj-player-score">0</div>
+    </div>
+    <div class="bj-controls-v2 hidden" id="bj-controls">
+        <button class="game-btn green" onclick="bjHit()">ð ÐÐ·ÑÑÑ</button>
+        <button class="game-btn orange" onclick="bjStand()">â Ð¡ÑÐ¾Ð¿</button>
+    </div>
+    <div id="bj-info" class="game-info-box"></div>
+</div>
+
+<div class="app game-screen" id="game-scratch">
+    <div class="game-header-bar"><button class="back-btn" onclick="closeGameScreen()">â ÐÐ°Ð·Ð°Ð´</button><div class="game-title-bar">ð« Ð¡ÐºÑÐµÑÑ-ÐºÐ°ÑÑÐ°</div></div>
+    <div class="bet-box">
+        <div class="bet-label">Ð¡ÑÐ°Ð²ÐºÐ° Â· ÐÐ°Ð»Ð°Ð½Ñ: <b id="scratch-balance">0</b> JScoin</div>
+        <div class="bet-input-wrap">
+            <input type="number" class="bet-input-v2" id="scratch-bet" placeholder="ÐÐ¸Ð½. 10" min="10">
+            <button class="bet-max-btn" onclick="setMaxBet('scratch-bet')">MAX</button>
+        </div>
+        <button class="game-btn" onclick="startScratch()" id="scratch-start-btn">â¶ ÐÑÐ¿Ð¸ÑÑ ÐºÐ°ÑÑÑ</button>
+    </div>
+    <div id="scratch-area" class="hidden" style="text-align:center;">
+        <div class="scratch-card-v2" id="scratch-card">
+            <div class="scratch-prize-v2" id="scratch-prize"></div>
+            <canvas class="scratch-canvas-v2" id="scratch-canvas"></canvas>
+        </div>
+        <p style="opacity:0.5;font-size:13px;margin-top:12px;">ð Ð¡Ð¾ÑÑÐ¸ÑÐµ ÑÐµÑÐµÐ±ÑÑÐ½ÑÑ Ð¾Ð±Ð»Ð°ÑÑÑ Ð¿Ð°Ð»ÑÑÐµÐ¼</p>
+        <div id="scratch-info" class="game-info-box"></div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="bottom-nav-inner">
+        <button class="nav-item active" onclick="switchNav(this,'home')" id="nav-home"><div class="nav-icon">ð </div><span>ÐÐ»Ð°Ð²Ð½Ð°Ñ</span></button>
+        <button class="nav-item" onclick="switchNav(this,'games')" id="nav-games"><div class="nav-icon">ð®</div><span>ÐÐ³ÑÑ</span></button>
+        <button class="nav-item" onclick="switchNav(this,'top')" id="nav-top"><div class="nav-icon">ð</div><span>Ð¢Ð¾Ð¿</span></button>
+        <button class="nav-item" onclick="switchNav(this,'bonus')" id="nav-bonus"><div class="nav-icon">ð</div><span>ÐÐ¾Ð½ÑÑ</span></button>
+        <button class="nav-item" onclick="switchNav(this,'profile')" id="nav-profile"><div class="nav-icon">ð¤</div><span>ÐÑÐ¾ÑÐ¸Ð»Ñ</span></button>
+        <button class="nav-item hidden" onclick="switchNav(this,'admin')" id="nav-admin"><div class="nav-icon">ð§</div><span>ÐÐ´Ð¼Ð¸Ð½</span></button>
+    </div>
+</div>
+
+<script>
+const ADMIN_ID = 7707487748;
+const START_BALANCE = 5000;
+const BONUS_AMOUNT = 10000;
+const BONUS_COOLDOWN = 24 * 60 * 60 * 1000;
+const MAX_BALANCE = 100000000000;
+const CLAN_COST = 3000000;
+
+let tg = null;
+let tgReady = false;
+try {
+    if (window.Telegram && window.Telegram.WebApp) {
+        tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        try { tg.setHeaderColor('#0a0a0f'); } catch(e) {}
+        try { tg.setBackgroundColor('#0a0a0f'); } catch(e) {}
+        tgReady = true;
+    }
+} catch(e) { console.log('Telegram WebApp not available'); }
+
+const LS = {
+    get: (k) => { try { return JSON.parse(localStorage.getItem('jscasino_' + k)); } catch(e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem('jscasino_' + k, JSON.stringify(v)); } catch(e) {} },
+    del: (k) => { try { localStorage.removeItem('jscasino_' + k); } catch(e) {} }
+};
+
+let myUid = 0;
+let isAdmin = false;
+let currentScreen = 'home';
+let currentGame = null;
+let currentBalanceDisplay = 0;
+
+function getUserData(uid) {
+    let d = LS.get('user_' + uid);
+    if (!d) {
+        d = { balance: START_BALANCE, games: 0, wins: 0, losses: 0, totalWon: 0, totalLost: 0, nickname: '', lastBonus: 0, sessionStart: Date.now(), todayChange: 0, lastDay: new Date().getDate(), clanId: null };
+        LS.set('user_' + uid, d);
+    }
+    if (!d.sessionStart) d.sessionStart = Date.now();
+    if (d.balance > MAX_BALANCE) d.balance = MAX_BALANCE;
+    let today = new Date().getDate();
+    if (d.lastDay !== today) { d.todayChange = 0; d.lastDay = today; }
+    return d;
+}
+
+function saveUserData(uid, d) {
+    if (d.balance > MAX_BALANCE) d.balance = MAX_BALANCE;
+    LS.set('user_' + uid, d);
+    updateTop(uid, d);
+}
+
+function updateTop(uid, d) {
+    let t = LS.get('top') || {};
+    t[uid] = { name: d.nickname || ('ÐÐ³ÑÐ¾Ðº ' + uid), balance: d.balance, games: d.games, wins: d.wins };
+    LS.set('top', t);
+}
+
+function getTopList() {
+    let t = LS.get('top') || {};
+    return Object.keys(t).map(id => ({ id: parseInt(id), ...t[id] })).sort((a,b) => b.balance - a.balance);
+}
+
+function getBotStats() {
+    let s = LS.get('bot_stats') || { totalWon: 0, totalLost: 0 };
+    let u = Object.keys(LS.get('top') || {}).length;
+    return { users: u || 1, totalWon: s.totalWon, totalLost: s.totalLost, turnover: s.totalWon + s.totalLost, profit: s.totalLost - s.totalWon };
+}
+
+function updateBotStats(win, bet, isWin) {
+    let s = LS.get('bot_stats') || { totalWon: 0, totalLost: 0 };
+    if (isWin) s.totalWon += win; else s.totalLost += bet;
+    LS.set('bot_stats', s);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function spawnConfetti() {
+    let c = document.createElement('div');
+    c.className = 'confetti-container';
+    const colors = ['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ffd700','#a78bfa','#f472b6'];
+    for (let i = 0; i < 50; i++) {
+        let p = document.createElement('div');
+        p.className = 'confetti';
+        p.style.cssText = `left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*0.5}s;border-radius:${Math.random()>0.5?'50%':'0'};width:${Math.random()*6+4}px;height:${Math.random()*6+4}px`;
+        c.appendChild(p);
+    }
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 2500);
+}
+
+function animateBalance(target) {
+    let start = currentBalanceDisplay;
+    let diff = target - start;
+    let steps = 20, step = 0;
+    let interval = setInterval(() => {
+        step++;
+        let val = Math.floor(start + (diff * step / steps));
+        let el = document.getElementById('user-balance');
+        if (el) el.textContent = val.toLocaleString('ru');
+        if (step >= steps) { clearInterval(interval); currentBalanceDisplay = target; }
+    }, 30);
+}
+
+function updateBalanceDisplay() {
+    let d = getUserData(myUid);
+    let el = document.getElementById('user-balance');
+    if (el) el.textContent = d.balance.toLocaleString('ru');
+    currentBalanceDisplay = d.balance;
+    let changeEl = document.getElementById('balance-change');
+    let changeText = document.getElementById('balance-change-text');
+    if (changeEl && changeText) {
+        let change = d.todayChange || 0;
+        changeText.textContent = (change >= 0 ? '+' : '') + change.toLocaleString('ru') + ' Ð·Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ';
+        changeEl.className = 'balance-change' + (change < 0 ? ' down' : '');
+    }
+}
+
+function updateProfileUI() {
+    let d = getUserData(myUid);
+    let wr = d.games > 0 ? Math.round(d.wins / d.games * 100) : 0;
+    let setT = (id, v) => { let e = document.getElementById(id); if(e) e.textContent = v; };
+    setT('profile-nick', d.nickname || 'ÐÐ³ÑÐ¾Ðº');
+    setT('profile-id', 'ID: ' + myUid);
+    setT('profile-balance', d.balance.toLocaleString('ru') + ' JScoin');
+    setT('profile-games', d.games);
+    setT('profile-wins', d.wins);
+    setT('profile-losses', d.losses);
+    setT('profile-winrate', wr + '%');
+    setT('profile-won', '+' + d.totalWon.toLocaleString('ru'));
+    setT('profile-lost', '-' + d.totalLost.toLocaleString('ru'));
+    let clanEl = document.getElementById('profile-clan');
+    if (clanEl) {
+        if (d.clanId) {
+            let clans = LS.get('clans') || {};
+            let clan = clans[d.clanId];
+            clanEl.textContent = clan ? clan.name : 'ÐÐµÑ ÐºÐ»Ð°Ð½Ð°';
+        } else clanEl.textContent = 'ÐÐµÑ ÐºÐ»Ð°Ð½Ð°';
+    }
+}
+
+function switchNav(btn, screen) {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.querySelectorAll('.screen-content').forEach(s => s.classList.add('hidden'));
+    document.querySelectorAll('.game-screen').forEach(s => { s.style.display='none'; s.classList.remove('active'); });
+    let s = document.getElementById('screen-' + screen);
+    if (s) s.classList.remove('hidden');
+    currentScreen = screen;
+    currentGame = null;
+    if (screen === 'top') renderTop();
+    if (screen === 'profile') updateProfileUI();
+    if (screen === 'bonus') renderBonus();
+    if (screen === 'admin' && isAdmin) renderAdmin();
+    if (screen === 'clans') renderClans();
+    window.scrollTo(0,0);
+}
+
+function openGameScreen(game) {
+    document.querySelectorAll('.screen-content').forEach(s => s.classList.add('hidden'));
+    document.querySelectorAll('.game-screen').forEach(s => { s.style.display='none'; s.classList.remove('active'); });
+    let gameMap = { mines:'game-mines', crash:'game-crash', roulette:'game-roulette', dice:'game-dash', coin:'game-coin', blackjack:'game-blackjack', scratch:'game-scratch' };
+    let el = document.getElementById(gameMap[game]);
+    if (el) { el.style.display = 'block'; el.classList.add('active'); }
+    currentGame = game;
+    let d = getUserData(myUid);
+    let balMap = { mines:'mines-balance', crash:'crash-balance', roulette:'roulette-balance', dice:'dice-balance', coin:'coin-balance', blackjack:'bj-balance', scratch:'scratch-balance' };
+    let balEl = document.getElementById(balMap[game]);
+    if (balEl) balEl.textContent = d.balance.toLocaleString('ru');
+    window.scrollTo(0,0);
+}
+
+function closeGameScreen() {
+    document.querySelectorAll('.game-screen').forEach(s => { s.style.display='none'; s.classList.remove('active'); });
+    let s = document.getElementById('screen-' + currentScreen);
+    if (s) s.classList.remove('hidden');
+    currentGame = null;
+}
+
+function setMaxBet(inputId) {
+    let d = getUserData(myUid);
+    let input = document.getElementById(inputId);
+    if (input) input.value = d.balance;
+}
+
+function renderTop() {
+    let list = getTopList();
+    let container = document.getElementById('top-list');
+    let mypos = document.getElementById('top-mypos');
+    let empty = document.getElementById('top-empty');
+    if (!container) return;
+    if (!list.length) {
+        container.innerHTML = '';
+        if (empty) empty.classList.remove('hidden');
+        return;
+    }
+    if (empty) empty.classList.add('hidden');
+    let rankClass = (i) => i===0?'gold':i===1?'silver':i===2?'bronze':'other';
+    let rankLabel = (i) => i===0?'ð¥':i===1?'ð¥':i===2?'ð¥':(i+1);
+    container.innerHTML = list.slice(0,20).map((u,i) => `
+        <div class="top-item">
+            <div class="top-rank ${rankClass(i)}">${rankLabel(i)}</div>
+            <div class="top-info"><div class="top-name">${u.name}</div><div class="top-stats">${u.games||0} Ð¸Ð³Ñ Â· ${u.wins||0} Ð¿Ð¾Ð±ÐµÐ´</div></div>
+            <div class="top-balance">${(u.balance||0).toLocaleString('ru')}</div>
+        </div>`).join('');
+    let myIdx = list.findIndex(u => u.id === myUid);
+    if (mypos) {
+        if (myIdx >= 0) { mypos.classList.remove('hidden'); mypos.textContent = `ÐÐ°ÑÐµ Ð¼ÐµÑÑÐ¾: #${myIdx+1} Ð¸Ð· ${list.length}`; }
+        else mypos.classList.add('hidden');
+    }
+}
+
+let bonusTimerInterval = null;
+function renderBonus() {
+    let d = getUserData(myUid);
+    let btn = document.getElementById('bonus-btn');
+    let timer = document.getElementById('bonus-timer');
+    let amount = document.getElementById('bonus-amount');
+    if (!btn) return;
+    if (bonusTimerInterval) clearInterval(bonusTimerInterval);
+    function update() {
+        let now = Date.now();
+        let diff = BONUS_COOLDOWN - (now - (d.lastBonus || 0));
+        if (diff <= 0) {
+            btn.disabled = false;
+            btn.textContent = 'ð° ÐÐ¾Ð»ÑÑÐ¸ÑÑ Ð±Ð¾Ð½ÑÑ';
+            if (timer) timer.classList.add('hidden');
+            if (amount) amount.classList.remove('hidden');
+        } else {
+            btn.disabled = true;
+            let h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+            if (timer) { timer.classList.remove('hidden'); timer.textContent = `â° ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+            if (amount) amount.classList.add('hidden');
+            btn.textContent = 'Ð£Ð¶Ðµ Ð¿Ð¾Ð»ÑÑÐµÐ½Ð¾';
+        }
+    }
+    update();
+    bonusTimerInterval = setInterval(update, 1000);
+}
+
+function claimBonus() {
+    let d = getUserData(myUid);
+    let now = Date.now();
+    if (now - (d.lastBonus || 0) < BONUS_COOLDOWN) { showToast('ÐÐ¾Ð½ÑÑ ÑÐ¶Ðµ Ð¿Ð¾Ð»ÑÑÐµÐ½ ÑÐµÐ³Ð¾Ð´Ð½Ñ!'); return; }
+    d.balance += BONUS_AMOUNT;
+    d.lastBonus = now;
+    d.todayChange = (d.todayChange || 0) + BONUS_AMOUNT;
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+    spawnConfetti();
+    showToast('+10,000 JScoin Ð¿Ð¾Ð»ÑÑÐµÐ½Ð¾!');
+    renderBonus();
+}
+
+function renderAdmin() {
+    let s = getBotStats();
+    let setT = (id,v) => { let e=document.getElementById(id); if(e) e.textContent=v; };
+    setT('admin-users', s.users);
+    setT('admin-won', s.totalWon.toLocaleString('ru'));
+    setT('admin-lost', s.totalLost.toLocaleString('ru'));
+    setT('admin-turnover', s.turnover.toLocaleString('ru'));
+    setT('admin-profit', s.profit.toLocaleString('ru'));
+}
+
+function adminGive() {
+    let tid = parseInt(document.getElementById('admin-target-id').value);
+    let amt = parseInt(document.getElementById('admin-amount').value);
+    if (!tid || !amt || amt <= 0) { showToast('ÐÐ²ÐµÐ´Ð¸ÑÐµ ID Ð¸ ÑÑÐ¼Ð¼Ñ'); return; }
+    let d = getUserData(tid);
+    d.balance += amt;
+    saveUserData(tid, d);
+    if (tid === myUid) animateBalance(d.balance);
+    showToast(`ÐÑÐ´Ð°Ð½Ð¾ ${amt.toLocaleString('ru')} JScoin Ð¸Ð³ÑÐ¾ÐºÑ ${tid}`);
+    document.getElementById('admin-target-id').value = '';
+    document.getElementById('admin-amount').value = '';
+    renderAdmin();
+}
+
+function validateBet(inputId) {
+    let d = getUserData(myUid);
+    let bet = parseInt(document.getElementById(inputId).value);
+    if (!bet || bet < 10) { showToast('ÐÐ¸Ð½Ð¸Ð¼Ð°Ð»ÑÐ½Ð°Ñ ÑÑÐ°Ð²ÐºÐ° 10 JScoin'); return null; }
+    if (bet > d.balance) { showToast('ÐÐµÐ´Ð¾ÑÑÐ°ÑÐ¾ÑÐ½Ð¾ ÑÑÐµÐ´ÑÑÐ²!'); return null; }
+    return bet;
+}
+
+function recordGame(won, amount, isWin) {
+    let d = getUserData(myUid);
+    d.games++;
+    if (isWin) { d.wins++; d.balance += amount; d.totalWon += amount; d.todayChange = (d.todayChange || 0) + amount; }
+    else { d.losses++; d.balance -= amount; d.totalLost += amount; d.todayChange = (d.todayChange || 0) - amount; }
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+    updateBotStats(isWin ? amount : 0, amount, isWin);
+}
+
+// ========== CLANS ==========
+function getClans() { return LS.get('clans') || {}; }
+function saveClans(clans) { LS.set('clans', clans); }
+
+function renderClans() {
+    let clans = getClans();
+    let container = document.getElementById('clan-list');
+    let empty = document.getElementById('clans-empty');
+    let d = getUserData(myUid);
+    if (!container) return;
+    let clanIds = Object.keys(clans);
+    if (!clanIds.length) {
+        container.innerHTML = '';
+        if (empty) empty.classList.remove('hidden');
+        return;
+    }
+    if (empty) empty.classList.add('hidden');
+    container.innerHTML = clanIds.map(id => {
+        let c = clans[id];
+        let isMember = c.members && c.members.includes(myUid);
+        let isOwner = c.owner === myUid;
+        let btnText = isOwner ? 'ð ÐÐ»Ð°Ð´ÐµÐ»ÐµÑ' : isMember ? 'â Ð ÐºÐ»Ð°Ð½Ðµ' : 'â ÐÑÑÑÐ¿Ð¸ÑÑ';
+        let btnClass = isOwner ? 'leave' : isMember ? 'leave' : 'join';
+        let btnOnclick = isOwner ? '' : isMember ? `onclick="leaveClan('${id}')"` : `onclick="joinClan('${id}')"`;
+        let disabled = isOwner ? 'disabled' : '';
+        return `
+        <div class="clan-card">
+            <div class="clan-card-title">${c.name}<span class="clan-tag">${c.members ? c.members.length : 0} ÑÑÐ°ÑÑÐ½Ð¸ÐºÐ¾Ð²</span></div>
+            <div class="clan-card-desc">ÐÐ»Ð°Ð´ÐµÐ»ÐµÑ: ${c.ownerName || 'ÐÐµÐ¸Ð·Ð²ÐµÑÑÐ½Ð¾'}</div>
+            <div class="clan-balance">ÐÐ±ÑÐ¸Ð¹ Ð±Ð°Ð»Ð°Ð½Ñ ÐºÐ»Ð°Ð½Ð°: ${(c.totalBalance || 0).toLocaleString('ru')} JScoin</div>
+            <button class="clan-btn ${btnClass}" ${btnOnclick} ${disabled}>${btnText}</button>
+        </div>`;
+    }).join('');
+}
+
+function createClan() {
+    let name = document.getElementById('clan-name-input').value.trim();
+    if (!name) { showToast('ÐÐ²ÐµÐ´Ð¸ÑÐµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÐºÐ»Ð°Ð½Ð°'); return; }
+    if (name.length > 20) { showToast('ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ»Ð¸ÑÐºÐ¾Ð¼ Ð´Ð»Ð¸Ð½Ð½Ð¾Ðµ'); return; }
+    let d = getUserData(myUid);
+    if (d.balance < CLAN_COST) { showToast('ÐÐµÐ´Ð¾ÑÑÐ°ÑÐ¾ÑÐ½Ð¾ ÑÑÐµÐ´ÑÑÐ²! ÐÑÐ¶Ð½Ð¾ 3,000,000 JScoin'); return; }
+    if (d.clanId) { showToast('ÐÑ ÑÐ¶Ðµ Ð² ÐºÐ»Ð°Ð½Ðµ! Ð¡Ð½Ð°ÑÐ°Ð»Ð° Ð²ÑÐ¹Ð´Ð¸ÑÐµ'); return; }
+    let clans = getClans();
+    let clanId = 'clan_' + Date.now();
+    clans[clanId] = {
+        id: clanId, name: name, owner: myUid, ownerName: d.nickname || 'ÐÐ³ÑÐ¾Ðº',
+        members: [myUid], createdAt: Date.now(), totalBalance: d.balance
+    };
+    saveClans(clans);
+    d.balance -= CLAN_COST;
+    d.clanId = clanId;
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+    showToast('ð° ÐÐ»Ð°Ð½ "' + name + '" ÑÐ¾Ð·Ð´Ð°Ð½!');
+    document.getElementById('clan-name-input').value = '';
+    renderClans();
+    updateProfileUI();
+}
+
+function joinClan(clanId) {
+    let clans = getClans();
+    let clan = clans[clanId];
+    if (!clan) { showToast('ÐÐ»Ð°Ð½ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½'); return; }
+    let d = getUserData(myUid);
+    if (d.clanId) { showToast('ÐÑ ÑÐ¶Ðµ Ð² ÐºÐ»Ð°Ð½Ðµ! Ð¡Ð½Ð°ÑÐ°Ð»Ð° Ð²ÑÐ¹Ð´Ð¸ÑÐµ'); return; }
+    if (!clan.members) clan.members = [];
+    clan.members.push(myUid);
+    clan.totalBalance = (clan.totalBalance || 0) + d.balance;
+    saveClans(clans);
+    d.clanId = clanId;
+    saveUserData(myUid, d);
+    showToast('â ÐÑ Ð²ÑÑÑÐ¿Ð¸Ð»Ð¸ Ð² ÐºÐ»Ð°Ð½ "' + clan.name + '"');
+    renderClans();
+    updateProfileUI();
+}
+
+function leaveClan(clanId) {
+    let clans = getClans();
+    let clan = clans[clanId];
+    if (!clan) { showToast('ÐÐ»Ð°Ð½ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½'); return; }
+    let d = getUserData(myUid);
+    if (clan.owner === myUid) { showToast('ÐÐ»Ð°Ð´ÐµÐ»ÐµÑ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ Ð¿Ð¾ÐºÐ¸Ð½ÑÑÑ ÐºÐ»Ð°Ð½'); return; }
+    clan.members = (clan.members || []).filter(id => id !== myUid);
+    clan.totalBalance = Math.max(0, (clan.totalBalance || 0) - d.balance);
+    if (clan.members.length === 0) { delete clans[clanId]; }
+    saveClans(clans);
+    d.clanId = null;
+    saveUserData(myUid, d);
+    showToast('ð ÐÑ Ð¿Ð¾ÐºÐ¸Ð½ÑÐ»Ð¸ ÐºÐ»Ð°Ð½');
+    renderClans();
+    updateProfileUI();
+}
+
+// ========== MINES ==========
+let minesGame = null;
+function startMines() {
+    let bet = validateBet('mines-bet');
+    if (!bet) return;
+    let count = parseInt(document.getElementById('mines-count').value);
+    let cells = 25;
+    let bombs = new Set();
+    while (bombs.size < count) bombs.add(Math.floor(Math.random() * cells));
+    minesGame = { bet, bombs, revealed: new Set(), active: true };
+    let board = document.getElementById('mines-board');
+    let cashout = document.getElementById('mines-cashout-wrap');
+    board.classList.remove('hidden');
+    if (cashout) cashout.classList.add('hidden');
+    board.innerHTML = '';
+    for (let i = 0; i < cells; i++) {
+        let cell = document.createElement('button');
+        cell.className = 'mine-cell-v2';
+        cell.innerHTML = 'â';
+        cell.onclick = () => minesClick(i, cell);
+        board.appendChild(cell);
+    }
+    document.getElementById('mines-start-btn').disabled = true;
+    let d = getUserData(myUid);
+    d.balance -= bet;
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+    document.getElementById('mines-info').innerHTML = `<b>Ð¡ÑÐ°Ð²ÐºÐ°: ${bet.toLocaleString('ru')} JScoin</b> Â· ÐÑÐºÑÑÐ²Ð°Ð¹ ÐºÐ»ÐµÑÐºÐ¸!`;
+}
+function getMinesMultiplier() {
+    if (!minesGame) return 1;
+    let safe = 25 - minesGame.bombs.size;
+    let opened = minesGame.revealed.size;
+    if (opened === 0) return 1;
+    let mult = 1;
+    for (let i = 0; i < opened; i++) mult *= (25 - minesGame.bombs.size - i) / (25 - i);
+    return Math.max(1, (1 / mult) * 0.97);
+}
+function minesClick(idx, cell) {
+    if (!minesGame || !minesGame.active) return;
+    if (minesGame.revealed.has(idx)) return;
+    if (minesGame.bombs.has(idx)) {
+        cell.className = 'mine-cell-v2 bomb';
+        cell.innerHTML = 'ð£';
+        minesGame.active = false;
+        document.getElementById('mines-cashout-wrap') && document.getElementById('mines-cashout-wrap').classList.add('hidden');
+        let cells = document.querySelectorAll('.mine-cell-v2');
+        minesGame.bombs.forEach(b => { if (cells[b]) { cells[b].className='mine-cell-v2 bomb'; cells[b].innerHTML='ð£'; } });
+        document.getElementById('mines-info').innerHTML = `<div class="result-lose">ð¥ ÐÐ·ÑÑÐ²!</div><div class="result-amount">-${minesGame.bet.toLocaleString('ru')} JScoin</div>`;
+        updateBotStats(0, minesGame.bet, false);
+        let d = getUserData(myUid);
+        d.games++; d.losses++; d.totalLost += minesGame.bet; d.todayChange = (d.todayChange || 0) - minesGame.bet;
+        saveUserData(myUid, d);
+        document.getElementById('mines-start-btn').disabled = false;
+        minesGame = null;
+    } else {
+        minesGame.revealed.add(idx);
+        cell.className = 'mine-cell-v2 revealed';
+        cell.innerHTML = 'ð';
+        let mult = getMinesMultiplier();
+        let win = Math.floor(minesGame.bet * mult);
+        document.getElementById('mines-info').innerHTML = `<b>ÐÑÐºÑÑÑÐ¾: ${minesGame.revealed.size}</b> Â· ÐÐ½Ð¾Ð¶Ð¸ÑÐµÐ»Ñ: x${mult.toFixed(2)} Â· ÐÑÐ¸Ð³ÑÑÑ: <b>${win.toLocaleString('ru')}</b>`;
+        let cashout = document.getElementById('mines-cashout-wrap');
+        if (cashout) cashout.classList.remove('hidden');
+        if (minesGame.revealed.size === 25 - minesGame.bombs.size) minesCashout();
+    }
+}
+function minesCashout() {
+    if (!minesGame || !minesGame.active) return;
+    let mult = getMinesMultiplier();
+    let win = Math.floor(minesGame.bet * mult);
+    minesGame.active = false;
+    let d = getUserData(myUid);
+    d.games++; d.wins++; d.balance += win; d.totalWon += win; d.todayChange = (d.todayChange || 0) + win;
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+    updateBotStats(win, minesGame.bet, true);
+    spawnConfetti();
+    document.getElementById('mines-info').innerHTML = `<div class="result-win">â ÐÐ°Ð±ÑÐ°Ð» Ð²ÑÐ¸Ð³ÑÑÑ!</div><div class="result-amount">+${win.toLocaleString('ru')} JScoin (x${mult.toFixed(2)})</div>`;
+    document.getElementById('mines-cashout-wrap') && document.getElementById('mines-cashout-wrap').classList.add('hidden');
+    document.getElementById('mines-start-btn').disabled = false;
+    minesGame = null;
+}
+
+// ========== CRASH ==========
+function playCrash() {
+    let bet = validateBet('crash-bet');
+    if (!bet) return;
+    let target = parseFloat(document.getElementById('crash-target').value);
+    // House edge: actual chance is slightly lower than displayed
+    let houseEdge = 0.05;
+    let realChance = (1 / target) * (1 - houseEdge);
+    let isWin = Math.random() < realChance;
+    let display = document.getElementById('crash-display');
+    let multiplierEl = document.getElementById('crash-multiplier');
+    let info = document.getElementById('crash-info');
+    let btn = document.getElementById('crash-start-btn');
+    display.classList.remove('hidden');
+    btn.disabled = true;
+    multiplierEl.className = 'crash-multiplier-v2';
+    multiplierEl.textContent = 'x1.00';
+    let current = 1.0;
+    let interval = setInterval(() => {
+        current += 0.05;
+        multiplierEl.textContent = 'x' + current.toFixed(2);
+        if (isWin && current >= target) {
+            clearInterval(interval);
+            multiplierEl.className = 'crash-multiplier-v2 win';
+            let win = Math.floor(bet * target);
+            recordGame(win, bet, true);
+            info.innerHTML = `<div class="result-win">ð Ð£ÑÐ¿ÐµÐ»!</div><div class="result-amount">+${win.toLocaleString('ru')} JScoin</div>`;
+            spawnConfetti();
+            btn.disabled = false;
+        } else if (!isWin && current >= target * (0.5 + Math.random() * 0.5)) {
+            clearInterval(interval);
+            multiplierEl.className = 'crash-multiplier-v2 lose';
+            multiplierEl.textContent = 'ð¥';
+            recordGame(0, bet, false);
+            info.innerHTML = `<div class="result-lose">ð¥ ÐÑÐ°Ñ!</div><div class="result-amount">-${bet.toLocaleString('ru')} JScoin</div>`;
+            btn.disabled = false;
+        }
+    }, 100);
+}
+
+// ========== ROULETTE ==========
+const ROULETTE_RED = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+function playRoulette(choice) {
+    let bet = validateBet('roulette-bet');
+    if (!bet) return;
+    let num = Math.floor(Math.random() * 37);
+    let result = document.getElementById('roulette-result');
+    let wheel = document.getElementById('roulette-wheel');
+    let ball = document.getElementById('roulette-ball');
+    let info = document.getElementById('roulette-info');
+    let resultInfo = document.getElementById('roulette-result-info');
+    result.classList.remove('hidden');
+    wheel.classList.remove('spinning');
+    void wheel.offsetWidth;
+    wheel.classList.add('spinning');
+    ball.className = 'roulette-ball-v2';
+    ball.textContent = '?';
+    if (resultInfo) { resultInfo.classList.add('hidden'); resultInfo.textContent = ''; }
+    setTimeout(() => {
+        ball.textContent = num;
+        let isRed = ROULETTE_RED.includes(num);
+        let isGreen = num === 0;
+        ball.className = 'roulette-ball-v2 ' + (isGreen ? 'green-ball' : isRed ? 'red' : 'black');
+        let win = 0, isWin = false;
+        if (choice==='red' && isRed) { win=bet*2; isWin=true; }
+        else if (choice==='black' && !isRed && !isGreen) { win=bet*2; isWin=true; }
+        else if (choice==='even' && num>0 && num%2===0) { win=bet*2; isWin=true; }
+        else if (choice==='odd' && num%2===1) { win=bet*2; isWin=true; }
+        else if (choice==='1-12' && num>=1 && num<=12) { win=Math.floor(bet*2.98); isWin=true; }
+        else if (choice==='13-24' && num>=13 && num<=24) { win=Math.floor(bet*2.98); isWin=true; }
+        else if (choice==='25-36' && num>=25 && num<=36) { win=Math.floor(bet*2.98); isWin=true; }
+        else if (choice==='green' && isGreen) { win=bet*14; isWin=true; }
+        recordGame(win, bet, isWin);
+        if (resultInfo) {
+            resultInfo.classList.remove('hidden');
+            let colorText = isGreen ? 'ÐÐÐÐÐÐÐ (ÐÐÐ Ð)' : isRed ? 'ÐÐ ÐÐ¡ÐÐÐ' : 'Ð§ÐÐ ÐÐÐ';
+            resultInfo.textContent = `ÐÑÐ¿Ð°Ð»Ð¾: ${num} â ${colorText}`;
+            resultInfo.className = 'roulette-result-info ' + (isGreen ? 'green' : isRed ? 'red' : 'black');
+        }
+        if (isWin) { info.innerHTML=`<div class="result-win">â ÐÑÐ¸Ð³ÑÑÑ!</div><div class="result-amount">+${win.toLocaleString('ru')} JScoin</div>`; spawnConfetti(); }
+        else info.innerHTML=`<div class="result-lose">â ÐÐµ ÑÐ³Ð°Ð´Ð°Ð»</div><div class="result-amount">-${bet.toLocaleString('ru')} JScoin</div>`;
+    }, 3000);
+}
+
+// ========== DICE ==========
+const DICE_FACES = ['â','â','â','â','â','â'];
+function playDice(choice) {
+    let bet = validateBet('dice-bet');
+    if (!bet) return;
+    let roll = Math.floor(Math.random() * 6) + 1;
+    let diceEl = document.getElementById('dice-value');
+    let result = document.getElementById('dice-result');
+    let info = document.getElementById('dice-info');
+    result.classList.remove('hidden');
+    diceEl.className = 'dice-v2 rolling';
+    diceEl.textContent = 'ð²';
+    setTimeout(() => {
+        diceEl.className = 'dice-v2';
+        diceEl.textContent = DICE_FACES[roll-1];
+        let isWin = false, mult = 1;
+        if (!isNaN(choice) && parseInt(choice)===roll) { isWin=true; mult=5; }
+        else if (choice==='even' && roll%2===0) { isWin=true; mult=2; }
+        else if (choice==='odd' && roll%2===1) { isWin=true; mult=2; }
+        else if (choice==='high' && roll>3) { isWin=true; mult=2; }
+        else if (choice==='low' && roll<4) { isWin=true; mult=2; }
+        let win = Math.floor(bet * mult);
+        recordGame(win, bet, isWin);
+        if (isWin) { info.innerHTML=`<div class="result-win">â ÐÑÐ¸Ð³ÑÑÑ!</div><div class="result-amount">+${win.toLocaleString('ru')} JScoin (x${mult})</div>`; spawnConfetti(); }
+        else info.innerHTML=`<div class="result-lose">â ÐÑÐ¿Ð°Ð»Ð¾: ${roll}</div><div class="result-amount">-${bet.toLocaleString('ru')} JScoin</div>`;
+    }, 700);
+}
+
+// ========== COIN ==========
+function playCoin(choice) {
+    let bet = validateBet('coin-bet');
+    if (!bet) return;
+    let result = Math.random() < 0.5 ? 'heads' : 'tails';
+    let coinEl = document.getElementById('coin-icon');
+    let resultDiv = document.getElementById('coin-result');
+    let info = document.getElementById('coin-info');
+    resultDiv.classList.remove('hidden');
+    coinEl.className = 'coin-v2 flipping';
+    coinEl.textContent = 'ðª';
+    setTimeout(() => {
+        coinEl.className = 'coin-v2';
+        coinEl.textContent = result==='heads' ? 'ð¦' : 'ðª';
+        let isWin = choice === result;
+        recordGame(isWin ? bet*2 : 0, bet, isWin);
+        if (isWin) { info.innerHTML=`<div class="result-win">â ${result==='heads'?'ÐÑÑÐ»':'Ð ÐµÑÐºÐ°'}! ÐÑÐ¸Ð³ÑÑÑ!</div><div class="result-amount">+${(bet*2).toLocaleString('ru')} JScoin</div>`; spawnConfetti(); }
+        else info.innerHTML=`<div class="result-lose">â ${result==='heads'?'ÐÑÑÐ»':'Ð ÐµÑÐºÐ°'}! ÐÑÐ¾Ð¸Ð³ÑÑÑ</div><div class="result-amount">-${bet.toLocaleString('ru')} JScoin</div>`;
+    }, 700);
+}
+
+// ========== BLACKJACK ==========
+let bjDeck = [], bjPlayer = [], bjDealer = [];
+function createDeck() {
+    let suits = ['â ','â¥','â¦','â£'], vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    let d = [];
+    suits.forEach(s => vals.forEach(v => d.push({s,v})));
+    return d.sort(() => Math.random()-0.5);
+}
+function cardValue(card) {
+    if (['J','Q','K'].includes(card.v)) return 10;
+    if (card.v === 'A') return 11;
+    return parseInt(card.v);
+}
+function handScore(hand) {
+    let score = hand.reduce((s,c) => s + cardValue(c), 0);
+    let aces = hand.filter(c => c.v==='A').length;
+    while (score > 21 && aces > 0) { score -= 10; aces--; }
+    return score;
+}
+function renderCard(card, hidden=false) {
+    let isRed = ['â¥','â¦'].includes(card.s);
+    return `<div class="bj-card-v2 ${hidden?'back':isRed?'red-card':''}">${hidden?'':card.v+card.s}</div>`;
+}
+function renderBJ(hideDealer=true) {
+    document.getElementById('bj-player-hand').innerHTML = bjPlayer.map(c => renderCard(c)).join('');
+    document.getElementById('bj-dealer-hand').innerHTML = bjDealer.map((c,i) => renderCard(c, hideDealer && i===1)).join('');
+    document.getElementById('bj-player-score').textContent = handScore(bjPlayer);
+    document.getElementById('bj-dealer-score').textContent = hideDealer ? cardValue(bjDealer[0]) : handScore(bjDealer);
+}
+let bjBet = 0;
+function startBJ() {
+    let bet = validateBet('bj-bet');
+    if (!bet) return;
+    bjBet = bet;
+    bjDeck = createDeck();
+    bjPlayer = [bjDeck.pop(), bjDeck.pop()];
+    bjDealer = [bjDeck.pop(), bjDeck.pop()];
+    document.getElementById('bj-table').classList.remove('hidden');
+    document.getElementById('bj-controls').classList.remove('hidden');
+    document.getElementById('bj-start-btn').disabled = true;
+    document.getElementById('bj-info').innerHTML = '';
+    renderBJ(true);
+    if (handScore(bjPlayer) === 21) { setTimeout(bjStand, 500); }
+}
+function bjHit() {
+    bjPlayer.push(bjDeck.pop());
+    renderBJ(true);
+    if (handScore(bjPlayer) > 21) { bjEnd('bust'); }
+}
+function bjStand() {
+    while (handScore(bjDealer) < 17) bjDealer.push(bjDeck.pop());
+    renderBJ(false);
+    let ps = handScore(bjPlayer), ds = handScore(bjDealer);
+    if (ps > 21) bjEnd('bust');
+    else if (ds > 21 || ps > ds) bjEnd('win');
+    else if (ps === ds) bjEnd('push');
+    else bjEnd('lose');
+}
+function bjEnd(result) {
+    document.getElementById('bj-controls').classList.add('hidden');
+    document.getElementById('bj-start-btn').disabled = false;
+    let info = document.getElementById('bj-info');
+    renderBJ(false);
+    let winMult = handScore(bjPlayer)===21 && bjPlayer.length===2 ? 2.5 : 2;
+    if (result==='win') {
+        let win = Math.floor(bjBet * winMult);
+        recordGame(win, bjBet, true);
+        info.innerHTML=`<div class="result-win">â ÐÐ¾Ð±ÐµÐ´Ð°!</div><div class="result-amount">+${win.toLocaleString('ru')} JScoin</div>`;
+        spawnConfetti();
+    } else if (result==='bust') {
+        recordGame(0, bjBet, false);
+        info.innerHTML=`<div class="result-lose">ð¥ ÐÐµÑÐµÐ±Ð¾Ñ!</div><div class="result-amount">-${bjBet.toLocaleString('ru')} JScoin</div>`;
+    } else if (result==='lose') {
+        recordGame(0, bjBet, false);
+        info.innerHTML=`<div class="result-lose">â ÐÐ¸Ð»ÐµÑ Ð¿Ð¾Ð±ÐµÐ´Ð¸Ð»</div><div class="result-amount">-${bjBet.toLocaleString('ru')} JScoin</div>`;
+    } else {
+        let d = getUserData(myUid); d.balance += bjBet; saveUserData(myUid, d); animateBalance(d.balance);
+        info.innerHTML=`<div class="game-info-box">ð¤ ÐÐ¸ÑÑÑ â ÑÑÐ°Ð²ÐºÐ° Ð²Ð¾Ð·Ð²ÑÐ°ÑÐµÐ½Ð°</div>`;
+    }
+}
+
+// ========== SCRATCH ==========
+let scratchBet = 0, scratchDone = false;
+function startScratch() {
+    let bet = validateBet('scratch-bet');
+    if (!bet) return;
+    scratchBet = bet;
+    scratchDone = false;
+    // House edge: 60% chance to lose, weighted prizes
+    let rand = Math.random();
+    let prize = 0;
+    if (rand < 0.40) {
+        let prizeRand = Math.random();
+        if (prizeRand < 0.5) prize = bet * 2;
+        else if (prizeRand < 0.8) prize = bet * 3;
+        else prize = bet * 5;
+    }
+    let area = document.getElementById('scratch-area');
+    let prizeEl = document.getElementById('scratch-prize');
+    let canvas = document.getElementById('scratch-canvas');
+    let info = document.getElementById('scratch-info');
+    area.classList.remove('hidden');
+    document.getElementById('scratch-start-btn').disabled = true;
+    info.innerHTML = '';
+    let isWin = prize > 0;
+    prizeEl.innerHTML = isWin ? `ð<br>+${prize.toLocaleString('ru')}<br>JScoin` : `ð¢<br>ÐÐµ<br>Ð²ÑÐ¸Ð³ÑÐ°Ð»`;
+    let card = document.getElementById('scratch-card');
+    canvas.width = card.offsetWidth || 280;
+    canvas.height = card.offsetHeight || 160;
+    let ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#9ca3af';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillStyle = '#6b7280';
+    ctx.textAlign = 'center';
+    ctx.fillText('â¨ Ð¡Ð¾ÑÑÐ¸ÑÐµ Ð·Ð´ÐµÑÑ â¨', canvas.width/2, canvas.height/2);
+    let scratching = false;
+    function getPos(e) {
+        let r = canvas.getBoundingClientRect();
+        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - r.left, y: clientY - r.top };
+    }
+    function scratch(e) {
+        if (!scratching) return;
+        e.preventDefault();
+        let pos = getPos(e);
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 22, 0, Math.PI*2);
+        ctx.fill();
+        checkReveal();
+    }
+    function checkReveal() {
+        if (scratchDone) return;
+        let data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+        let total = data.length/4, cleared = 0;
+        for (let i=3; i<data.length; i+=4) if (data[i]<128) cleared++;
+        if (cleared/total > 0.5) {
+            scratchDone = true;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            recordGame(prize, bet, isWin);
+            if (isWin) { info.innerHTML=`<div class="result-win">ð ÐÑÐ¸Ð³ÑÑÑ!</div><div class="result-amount">+${prize.toLocaleString('ru')} JScoin</div>`; spawnConfetti(); }
+            else info.innerHTML=`<div class="result-lose">ð¢ ÐÐµ Ð¿Ð¾Ð²ÐµÐ·Ð»Ð¾</div><div class="result-amount">-${bet.toLocaleString('ru')} JScoin</div>`;
+            document.getElementById('scratch-start-btn').disabled = false;
+        }
+    }
+    canvas.onmousedown = () => scratching = true;
+    canvas.onmouseup = () => scratching = false;
+    canvas.onmousemove = scratch;
+    canvas.ontouchstart = (e) => { scratching = true; e.preventDefault(); };
+    canvas.ontouchend = () => scratching = false;
+    canvas.ontouchmove = scratch;
+    let d = getUserData(myUid);
+    d.balance -= bet;
+    saveUserData(myUid, d);
+    animateBalance(d.balance);
+}
+
+// ========== INIT ==========
+function hideLoading() {
+    let loading = document.getElementById('loading');
+    if (loading) {
+        loading.classList.add('hidden');
+        setTimeout(() => { if (loading.parentNode) loading.parentNode.removeChild(loading); }, 600);
+    }
+}
+
+function init() {
+    try {
+        let userData = null;
+        if (tgReady && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            userData = tg.initDataUnsafe.user;
+        }
+        if (userData) {
+            myUid = userData.id;
+            isAdmin = (myUid === ADMIN_ID);
+            let name = (userData.first_name || 'ÐÐ³ÑÐ¾Ðº').substring(0, 1).toUpperCase();
+            let setAvatar = (id) => { let e=document.getElementById(id); if(e) e.textContent=name; };
+            setAvatar('user-avatar');
+            setAvatar('profile-avatar');
+            let d = getUserData(myUid);
+            if (!d.nickname) { d.nickname = userData.first_name || 'ÐÐ³ÑÐ¾Ðº'; saveUserData(myUid, d); }
+        } else {
+            myUid = parseInt(LS.get('anon_uid') || 0) || Math.floor(Math.random() * 900000 + 100000);
+            LS.set('anon_uid', myUid);
+            isAdmin = false;
+            let d = getUserData(myUid);
+            if (!d.nickname) { d.nickname = 'ÐÐ³ÑÐ¾Ðº'; saveUserData(myUid, d); }
+        }
+        if (isAdmin) {
+            let navAdmin = document.getElementById('nav-admin');
+            if (navAdmin) navAdmin.classList.remove('hidden');
+        }
+        updateBalanceDisplay();
+        updateProfileUI();
+    } catch(e) {
+        console.error('Init error:', e);
+        myUid = Math.floor(Math.random() * 900000 + 100000);
+        let d = getUserData(myUid);
+        d.nickname = 'ÐÐ³ÑÐ¾Ðº';
+        saveUserData(myUid, d);
+        updateBalanceDisplay();
+        updateProfileUI();
+    } finally {
+        hideLoading();
+    }
+}
+
+setTimeout(() => {
+    let loading = document.getElementById('loading');
+    if (loading && !loading.classList.contains('hidden')) {
+        console.warn('[JSCasino] Force-hiding loader after timeout');
+        hideLoading();
+    }
+}, 4000);
+
+setTimeout(init, 1400);
+</script>
+</body>
+</html>
